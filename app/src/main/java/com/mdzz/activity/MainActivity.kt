@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                         Toast.LENGTH_LONG)
             }
 
-            R.id.githubCV -> openUri(Uri.parse(getString(R.id.githubCV)))
+            R.id.githubCV -> openUri(Uri.parse(getString(R.string.url_github)))
 
             R.id.updateInfoCV -> showUpdateInfoDialog()
         }
