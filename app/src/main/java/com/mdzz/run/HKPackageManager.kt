@@ -12,7 +12,8 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 class HKPackageManager {
 
-    fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
+    fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam,
+                          pkgName: String = "com.zjwh.android_wh_physicalfitness") {
         val clazz = XposedHelpers.findClass("android.app.ApplicationPackageManager",
                 lpparam.classLoader)
 
@@ -23,7 +24,7 @@ class HKPackageManager {
                     Int::class.javaPrimitiveType,
                     object : XC_MethodHook() {
                         override fun beforeHookedMethod(param: MethodHookParam) {
-                            if (param.args[0].toString() != "com.zjwh.android_wh_physicalfitness") {
+                            if (param.args[0].toString() != pkgName) {
                                 param.throwable = PackageManager.NameNotFoundException()
                             }
                         }
@@ -35,7 +36,7 @@ class HKPackageManager {
                     object : XC_MethodHook() {
                         override fun beforeHookedMethod(param: MethodHookParam) {
 //                            XposedBridge.log("run: applicationinfo ${param.args[0]}")
-                            if (param.args[0].toString() != "com.zjwh.android_wh_physicalfitness") {
+                            if (param.args[0].toString() != pkgName) {
                                 param.throwable = PackageManager.NameNotFoundException()
                             }
                         }
