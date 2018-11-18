@@ -13,6 +13,6 @@
     <string name="pay_code">支付宝推广红包代码</string>
     <string name="hide_icon">隐藏图标</string>
     <string name="view_icon">显示图标</string>
-    <string name="url_clouddisk"></string>
+    <string name="url_clouddisk">https://pan.baidu.com/s/1yENMocHijwbhnrCj5afTIg</string>
     <string name="url_github">https://github.com/TinyHai/Run.git</string>
 </resources>
