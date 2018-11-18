@@ -50,8 +50,6 @@
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             app:cardUseCompatPadding="true"
-            android:clickable="true"
-            android:focusable="true"
             android:foreground="?android:attr/selectableItemBackground">
 
             <LinearLayout
