@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Run</string>
+    <string name="is_active">模板已激活</string>
+    <string name="no_active">模板未激活</string>
+    <string name="tv_pay">支付宝捐赠通道 (给作者加鸡腿)</string>
+    <string name="version">当前版本：%1$s</string>
+    <string name="agreement">免责声明 (使用本软件即同意)</string>
+    <string name="feedback">反馈QQ：2071769694</string>
+    <string name="clouddisk">我的百度云盘</string>
+    <string name="update_info">更新日志</string>
+    <string name="agrement_info">此软件仅仅为了解决Xposed框架与某跑步软件的兼容性问题，请勿用作其他用途，如若不然，后果由你自己承担，与作者无关！</string>
+    <string name="update_info_data">1- UI重做\n2- 禁止读取/sdcard/Android/data目录（该文件夹中的文件夹名即软件包名）\n3- 禁止读取用户安装应用列表\n4- 更新了版本号</string>
+    <string name="pay_code">支付宝推广红包代码</string>
+    <string name="hide_icon">隐藏图标</string>
+    <string name="view_icon">显示图标</string>
+    <string name="url_clouddisk"></string>
+    <string name="url_github">https://github.com/TinyHai/Run.git</string>
+</resources>
