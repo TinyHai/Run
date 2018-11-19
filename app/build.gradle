@@ -10,8 +10,8 @@ android {
         applicationId "com.mdzz.hook"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 9
-        versionName "1.7.0"
+        versionCode 10
+        versionName "1.7.1-tanke"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

@@ -1,8 +1,12 @@
 package com.mdzz.run
 
+import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.os.Binder
+import android.support.annotation.BinderThread
+import android.view.View
 import com.mdzz.filter.ApplicationInfoFilter
 import com.mdzz.filter.PackageInfoFilter
 import de.robv.android.xposed.XC_MethodHook
@@ -23,9 +27,15 @@ class HKPackageManager {
                     String::class.java,
                     Int::class.javaPrimitiveType,
                     object : XC_MethodHook() {
-                        override fun beforeHookedMethod(param: MethodHookParam) {
-                            if (param.args[0].toString() != pkgName) {
-                                param.throwable = PackageManager.NameNotFoundException()
+                        override fun afterHookedMethod(param: MethodHookParam) {
+                            if (param.throwable != null) {
+                                return
+                            }
+                            if (isSystemApp((param.result as PackageInfo).applicationInfo)
+                                    || param.args[0] == pkgName) {
+                                return
+                            } else {
+                                param.throwable = PackageManager.NameNotFoundException(param.args[0].toString())
                             }
                         }
                     })
@@ -34,10 +44,16 @@ class HKPackageManager {
                     String::class.java,
                     Int::class.javaPrimitiveType,
                     object : XC_MethodHook() {
-                        override fun beforeHookedMethod(param: MethodHookParam) {
+                        override fun afterHookedMethod(param: MethodHookParam) {
 //                            XposedBridge.log("run: applicationinfo ${param.args[0]}")
-                            if (param.args[0].toString() != pkgName) {
-                                param.throwable = PackageManager.NameNotFoundException()
+                            if (param.throwable != null) {
+                                return
+                            }
+                            if (isSystemApp(param.result as ApplicationInfo)
+                                    || param.args[0] == pkgName) {
+                                return
+                            } else {
+                                param.throwable = PackageManager.NameNotFoundException(param.args[0].toString())
                             }
                         }
                     })
@@ -81,4 +97,7 @@ class HKPackageManager {
         var pInstance: PackageInfoFilter? = null
         var aInstance: ApplicationInfoFilter? = null
     }
+
+    private fun isSystemApp(applicationInfo: ApplicationInfo)
+        = applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0
 }

@@ -8,9 +8,6 @@ import java.io.File
 
 class HKFile {
 
-    val file = File(Environment.getExternalStorageDirectory().path
-            + "/Android/data/", "/com.zjwh.android_wh_physicalfitness/")
-
     fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         XposedBridge.hookAllMethods(File::class.java, "list", object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam) {
@@ -19,14 +16,15 @@ class HKFile {
                     is File -> {
                         with(obj) {
                             if (parent == Environment.getExternalStorageDirectory().path
-                                    + "/Android/data") {
+                                    + "/Android") {
                                 param.result = arrayOf("com.zjwh.android_wh_physicalfitness")
+
                             }
                         }
                     }
                 }
             }
         })
-        XposedBridge.log("run: 模块5运行正常")
+        XposedBridge.log("run: 模块5工作正常")
     }
 }
