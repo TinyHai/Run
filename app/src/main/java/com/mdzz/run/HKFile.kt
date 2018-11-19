@@ -25,6 +25,6 @@ class HKFile {
                 }
             }
         })
-        XposedBridge.log("run: 模块5运行正常")
+        XposedBridge.log("run: 模块5工作正常")
     }
 }

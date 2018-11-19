@@ -27,11 +27,10 @@ class HKPackageManager {
                     Int::class.javaPrimitiveType,
                     object : XC_MethodHook() {
                         override fun afterHookedMethod(param: MethodHookParam) {
-                            XposedBridge.log("GPI: " + param.args[0].toString())
                             if (param.throwable != null) {
                                 return
                             }
-                            if (isSystemApp(param.result as ApplicationInfo)
+                            if (isSystemApp((param.result as PackageInfo).applicationInfo)
                                     || param.args[0] == "com.zjwh.android_wh_physicalfitness") {
                                 return
                             } else {
@@ -46,7 +45,6 @@ class HKPackageManager {
                     object : XC_MethodHook() {
                         override fun afterHookedMethod(param: MethodHookParam) {
 //                            XposedBridge.log("run: applicationinfo ${param.args[0]}")
-                            XposedBridge.log("GAI: " + param.args[0].toString())
                             if (param.throwable != null) {
                                 return
                             }
