@@ -1,12 +1,8 @@
 package com.mdzz.run
 
-import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.os.Binder
-import android.support.annotation.BinderThread
-import android.view.View
 import com.mdzz.filter.ApplicationInfoFilter
 import com.mdzz.filter.PackageInfoFilter
 import de.robv.android.xposed.XC_MethodHook
@@ -93,7 +89,9 @@ class HKPackageManager {
     }
 
     private companion object {
+        @JvmStatic
         var pInstance: PackageInfoFilter? = null
+        @JvmStatic
         var aInstance: ApplicationInfoFilter? = null
     }
 
