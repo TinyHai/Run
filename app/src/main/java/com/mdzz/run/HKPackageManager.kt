@@ -1,12 +1,8 @@
 package com.mdzz.run
 
-import android.content.Context
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.os.Binder
-import android.support.annotation.BinderThread
-import android.view.View
 import com.mdzz.filter.ApplicationInfoFilter
 import com.mdzz.filter.PackageInfoFilter
 import de.robv.android.xposed.XC_MethodHook
@@ -16,8 +12,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 class HKPackageManager {
 
-    fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam,
-                          pkgName: String = "com.zjwh.android_wh_physicalfitness") {
+    fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         val clazz = XposedHelpers.findClass("android.app.ApplicationPackageManager",
                 lpparam.classLoader)
 
@@ -32,7 +27,7 @@ class HKPackageManager {
                                 return
                             }
                             if (isSystemApp((param.result as PackageInfo).applicationInfo)
-                                    || param.args[0] == pkgName) {
+                                    || param.args[0] == "com.zjwh.android_wh_physicalfitness") {
                                 return
                             } else {
                                 param.throwable = PackageManager.NameNotFoundException(param.args[0].toString())
@@ -50,7 +45,7 @@ class HKPackageManager {
                                 return
                             }
                             if (isSystemApp(param.result as ApplicationInfo)
-                                    || param.args[0] == pkgName) {
+                                    || param.args[0] == "com.zjwh.android_wh_physicalfitness") {
                                 return
                             } else {
                                 param.throwable = PackageManager.NameNotFoundException(param.args[0].toString())
@@ -94,7 +89,9 @@ class HKPackageManager {
     }
 
     private companion object {
+        @JvmStatic
         var pInstance: PackageInfoFilter? = null
+        @JvmStatic
         var aInstance: ApplicationInfoFilter? = null
     }
 
