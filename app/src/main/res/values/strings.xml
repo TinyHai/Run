@@ -9,7 +9,7 @@
     <string name="clouddisk">我的百度云盘</string>
     <string name="update_info">更新日志</string>
     <string name="agrement_info">此软件仅仅为了解决Xposed框架与某跑步软件的兼容性问题，请勿用作其他用途，如若不然，后果由你自己承担，与作者无关！</string>
-    <string name="update_info_data">1- 防止被集成为系统软件的Xp管理被检测2- 禁止读取/sdcard/Android/data目录（该文件夹中的文件夹名即软件包名）\n3- 禁止读取用户安装应用列表\n4- 更新了版本号</string>
+    <string name="update_info_data">1- 防止被集成为系统软件的Xp管理被检测\n2- 禁止读取/sdcard/Android/data目录（该文件夹中的文件夹名即软件包名）\n3- 禁止读取用户安装应用列表\n4- 更新了版本号</string>
     <string name="pay_code">支付宝推广红包代码</string>
     <string name="hide_icon">隐藏图标</string>
     <string name="view_icon">显示图标</string>

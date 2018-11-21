@@ -3,7 +3,6 @@ package com.mdzz.run
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
-import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 class HKThrowable {
     fun handleLoadPackage() {

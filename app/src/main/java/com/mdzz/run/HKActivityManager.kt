@@ -1,7 +1,6 @@
 package com.mdzz.run
 
 import android.app.ActivityManager
-import android.content.Context
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers

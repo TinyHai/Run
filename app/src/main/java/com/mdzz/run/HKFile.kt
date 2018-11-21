@@ -3,7 +3,6 @@ package com.mdzz.run
 import android.os.Environment
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
-import de.robv.android.xposed.callbacks.XC_LoadPackage
 import java.io.File
 
 class HKFile {

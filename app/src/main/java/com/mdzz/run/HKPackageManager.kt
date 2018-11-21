@@ -1,10 +1,8 @@
 package com.mdzz.run
 
-import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import com.mdzz.filter.ApplicationInfoFilter
 import com.mdzz.filter.PackageInfoFilter
 import com.mdzz.log.log
