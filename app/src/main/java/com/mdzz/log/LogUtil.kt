@@ -2,7 +2,7 @@ package com.mdzz.log
 
 import de.robv.android.xposed.XposedBridge
 
-const val status = true
+const val status = false
 
 fun log(arg: Any) {
 

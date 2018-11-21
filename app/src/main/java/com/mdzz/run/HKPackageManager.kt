@@ -29,7 +29,7 @@ class HKPackageManager {
                             if (param.throwable != null) {
                                 return
                             }
-                            if (isSystemApp((param.result as PackageInfo).applicationInfo)
+                            if (isSystemAppAndNotXpManager((param.result as PackageInfo).applicationInfo)
                                     || param.args[0] == "com.zjwh.android_wh_physicalfitness") {
                                 log(param.args[0])
                                 return
@@ -48,7 +48,7 @@ class HKPackageManager {
                             if (param.throwable != null) {
                                 return
                             }
-                            if (isSystemApp(param.result as ApplicationInfo)
+                            if (isSystemAppAndNotXpManager(param.result as ApplicationInfo)
                                     || param.args[0] == "com.zjwh.android_wh_physicalfitness") {
                                 log(param.args[0])
                                 return
@@ -99,6 +99,7 @@ class HKPackageManager {
         var aInstance: ApplicationInfoFilter? = null
     }
 
-    private fun isSystemApp(applicationInfo: ApplicationInfo)
+    private fun isSystemAppAndNotXpManager(applicationInfo: ApplicationInfo)
         = applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0
+            && applicationInfo.packageName != "de.robv.android.xposed.installer"
 }
