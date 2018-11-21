@@ -12,11 +12,11 @@ class XposedInit : IXposedHookLoadPackage {
 
             "com.zjwh.android_wh_physicalfitness" -> {
                 XposedBridge.log("run: begin")
-                HKThrowable().handleLoadPackage(lpparam)
-                HKBufferedReader().handleLoadPackage(lpparam)
+                HKThrowable().handleLoadPackage()
+                HKBufferedReader().handleLoadPackage()
                 HKPackageManager().handleLoadPackage(lpparam)
                 HKActivityManager().handleLoadPackage(lpparam)
-                HKFile().handleLoadPackage(lpparam)
+                HKFile().handleLoadPackage()
             }
         }
     }

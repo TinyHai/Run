@@ -7,7 +7,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 import java.io.BufferedReader
 
 class HKBufferedReader {
-    fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
+    fun handleLoadPackage() {
         XposedHelpers.findAndHookMethod(BufferedReader::class.java, "readLine",
                 object : XC_MethodHook() {
                     override fun afterHookedMethod(param: MethodHookParam) {

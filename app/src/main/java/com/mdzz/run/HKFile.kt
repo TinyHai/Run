@@ -8,7 +8,7 @@ import java.io.File
 
 class HKFile {
 
-    fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
+    fun handleLoadPackage() {
         XposedBridge.hookAllMethods(File::class.java, "list", object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam) {
                 val obj = param.thisObject
@@ -18,13 +18,13 @@ class HKFile {
                             if (parent == Environment.getExternalStorageDirectory().path
                                     + "/Android") {
                                 param.result = arrayOf("com.zjwh.android_wh_physicalfitness")
-
                             }
                         }
                     }
                 }
             }
         })
+
         XposedBridge.log("run: 模块5工作正常")
     }
 }

@@ -6,7 +6,7 @@ import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 class HKThrowable {
-    fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
+    fun handleLoadPackage() {
         XposedHelpers.findAndHookMethod(Throwable::class.java, "getStackTrace",
                 object : XC_MethodHook() {
                     override fun afterHookedMethod(param: MethodHookParam) {

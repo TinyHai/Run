@@ -1,10 +1,13 @@
 package com.mdzz.run
 
+import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import com.mdzz.filter.ApplicationInfoFilter
 import com.mdzz.filter.PackageInfoFilter
+import com.mdzz.log.log
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -28,6 +31,7 @@ class HKPackageManager {
                             }
                             if (isSystemApp((param.result as PackageInfo).applicationInfo)
                                     || param.args[0] == "com.zjwh.android_wh_physicalfitness") {
+                                log(param.args[0])
                                 return
                             } else {
                                 param.throwable = PackageManager.NameNotFoundException(param.args[0].toString())
@@ -46,6 +50,7 @@ class HKPackageManager {
                             }
                             if (isSystemApp(param.result as ApplicationInfo)
                                     || param.args[0] == "com.zjwh.android_wh_physicalfitness") {
+                                log(param.args[0])
                                 return
                             } else {
                                 param.throwable = PackageManager.NameNotFoundException(param.args[0].toString())
@@ -82,7 +87,6 @@ class HKPackageManager {
                             }
                         }
                     })
-
         }
 
         XposedBridge.log("run: 模块3工作正常")
