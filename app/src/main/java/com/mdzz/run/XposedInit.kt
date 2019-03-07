@@ -15,7 +15,6 @@ class XposedInit : IXposedHookLoadPackage {
                 HKThrowable().handleLoadPackage()
                 HKBufferedReader().handleLoadPackage()
                 HKPackageManager().handleLoadPackage(lpparam)
-                HKActivityManager().handleLoadPackage(lpparam)
                 HKFile().handleLoadPackage()
             }
         }

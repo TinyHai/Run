@@ -1,6 +1,7 @@
 package com.mdzz.log
 
 import de.robv.android.xposed.XposedBridge
+import java.lang.IllegalArgumentException
 
 const val status = false
 
@@ -17,7 +18,7 @@ fun log(arg: Any) {
             }
 
             else -> {
-                throw ClassFormatError("${arg.javaClass.name} is not String or Throwable")
+                throw IllegalArgumentException("${arg.javaClass.name} is not String or Throwable")
             }
         }
     }
