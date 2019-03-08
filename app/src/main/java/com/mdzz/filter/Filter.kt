@@ -11,7 +11,7 @@ sealed class Filter<T>() {
     abstract fun filter(list: List<T>): List<T>
 }
 
-class PackageInfoFilter() : Filter<PackageInfo>() {
+object PackageInfoFilter : Filter<PackageInfo>() {
 
     override fun filter(list: List<PackageInfo>) = with(result) {
         if (isEmpty()) {
@@ -27,7 +27,7 @@ class PackageInfoFilter() : Filter<PackageInfo>() {
     }
 }
 
-class ApplicationInfoFilter() : Filter<ApplicationInfo>() {
+object ApplicationInfoFilter : Filter<ApplicationInfo>() {
 
     override fun filter(list: List<ApplicationInfo>) = with(result) {
         if (isEmpty()) {

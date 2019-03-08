@@ -60,14 +60,7 @@ class HKPackageManager {
                     object : XC_MethodHook() {
                         override fun afterHookedMethod(param: MethodHookParam) {
                             val list = param.result as List<ApplicationInfo>
-                            param.result = with(aInstance) {
-                                if (this == null) {
-                                    aInstance = ApplicationInfoFilter()
-                                    aInstance?.filter(list)
-                                } else {
-                                    aInstance?.filter(list)
-                                }
-                            }
+                            param.result = ApplicationInfoFilter.filter(list)
                         }
                     })
 
@@ -75,26 +68,12 @@ class HKPackageManager {
                     object : XC_MethodHook() {
                         override fun afterHookedMethod(param: MethodHookParam) {
                             val list = param.result as List<PackageInfo>
-                            param.result = with(pInstance) {
-                                if (this == null) {
-                                    pInstance = PackageInfoFilter()
-                                    pInstance?.filter(list)
-                                } else {
-                                    pInstance?.filter(list)
-                                }
-                            }
+                            param.result = PackageInfoFilter.filter(list)
                         }
                     })
         }
 
         XposedBridge.log("run: 模块3工作正常")
-    }
-
-    private companion object {
-        @JvmStatic
-        var pInstance: PackageInfoFilter? = null
-        @JvmStatic
-        var aInstance: ApplicationInfoFilter? = null
     }
 
     private fun isSystemAppAndNotXpManager(applicationInfo: ApplicationInfo)
