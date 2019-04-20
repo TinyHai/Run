@@ -10,6 +10,10 @@ class HKFile {
     fun handleLoadPackage() {
         XposedBridge.hookAllMethods(File::class.java, "list", object : XC_MethodHook() {
             override fun afterHookedMethod(param: MethodHookParam) {
+                val file = param.thisObject as File
+                if (file.absolutePath.startsWith("/data/data/com.zjwh.android_wh_physicalfitness")) {
+                    return
+                }
                 val obj = param.thisObject
                 when (obj) {
                     is File -> {

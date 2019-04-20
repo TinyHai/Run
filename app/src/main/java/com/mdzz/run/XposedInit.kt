@@ -7,16 +7,19 @@ class XposedInit : IXposedHookLoadPackage {
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
 
-        when (lpparam.packageName) {
-            "com.mdzz.hook" -> check(lpparam)
+        if (lpparam.packageName == "com.mdzz.hook") {
+            check(lpparam)
+            return
+        }
 
-            "com.zjwh.android_wh_physicalfitness" -> {
-                XposedBridge.log("run: begin")
-                HKThrowable().handleLoadPackage()
-                HKBufferedReader().handleLoadPackage()
-                HKPackageManager().handleLoadPackage(lpparam)
-                HKFile().handleLoadPackage()
-            }
+        if (lpparam.packageName == "com.zjwh.android_wh_physicalfitness"
+                && lpparam.processName == "com.zjwh.android_wh_physicalfitness") {
+            XposedBridge.log("run: begin")
+            HKThrowable().handleLoadPackage()
+            HKBufferedReader().handleLoadPackage()
+            HKPackageManager().handleLoadPackage(lpparam)
+            HKFile().handleLoadPackage()
+            HKClass().handleLoadPackage()
         }
     }
 

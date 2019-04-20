@@ -15,7 +15,7 @@ class HKBufferedReader {
                         }
                         if (param.result.toString().trim().contains("XposedBridge")
                             || param.result.toString().trim().startsWith("package:")) {
-                            param.result = null
+                            param.result = ""
                         }
                     }
                 })
