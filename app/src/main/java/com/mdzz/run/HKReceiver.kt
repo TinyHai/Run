@@ -7,6 +7,7 @@ import com.mdzz.run.util.FileUtil
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 
+// 未使用的类
 class HKReceiver : BaseHook() {
 
     companion object {
