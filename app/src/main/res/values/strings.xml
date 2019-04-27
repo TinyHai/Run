@@ -1,18 +1,61 @@
 <resources>
+
+    <!-- App Name -->
     <string name="app_name">Run</string>
-    <string name="is_active">模板已激活</string>
-    <string name="no_active">模板未激活</string>
-    <string name="tv_pay">支付宝捐赠通道 (给作者加鸡腿)</string>
+
+    <string name="agrement_info">此软件仅仅为了解决Xposed框架与某跑步软件的兼容性问题，请勿用作其他用途，如若不然，后果由你自己承担，与作者无关！</string>
+    <string name="update_info_data">1-再次UI重做, 添加反流氓功能\n2-由于未知原因, 使用run回导致偶发性崩溃, 若无法接受, 请卸载run\n3-更新版本号</string>
+
+    <!-- menu -->
+    <string name="hide_icon">隐藏图标</string>
+    <string name="view_icon">显示图标</string>
+
+    <!-- Url -->
+    <string name="url_clouddisk">https://pan.baidu.com/s/1yENMocHijwbhnrCj5afTIg</string>
+    <string name="url_github">https://github.com/TinyHai/Run.git</string>
+    <string name="url_qqpurify_github">https://github.com/zpp0196/QQPurify.git</string>
+    <!--<string name="title_activity_my_main_actitivy">Run</string>-->
+
+    <!-- AboutFragment -->
+    <string name="title_about_run">关于模板</string>
+    <string name="pay">支付宝捐赠</string>
     <string name="version">当前版本：%1$s</string>
     <string name="agreement">免责声明 (使用本软件即同意)</string>
     <string name="feedback">反馈QQ：2071769694</string>
     <string name="clouddisk">我的百度云盘</string>
     <string name="update_info">更新日志</string>
-    <string name="agrement_info">此软件仅仅为了解决Xposed框架与某跑步软件的兼容性问题，请勿用作其他用途，如若不然，后果由你自己承担，与作者无关！</string>
-    <string name="update_info_data">1-紧急修复在2.3.5版本出现闪退的现象，这都是我自己代码写的不够好所致，我先在这道个歉！\n2-更新版本号</string>
     <string name="pay_code">支付宝推广红包代码</string>
-    <string name="hide_icon">隐藏图标</string>
-    <string name="view_icon">显示图标</string>
-    <string name="url_clouddisk">https://pan.baidu.com/s/1yENMocHijwbhnrCj5afTIg</string>
-    <string name="url_github">https://github.com/TinyHai/Run.git</string>
+    <string name="run_github">Github开源地址</string>
+    <string name="title_thank">鸣谢</string>
+    <string name="thank_qqpurify">感谢QQ净化</string>
+    <string name="summary_thank_qqpurify">感谢开源项目QQ净化!</string>
+    <string name="thank_all_support">感谢所有捐助过我的人</string>
+    <string name="summary_thank_all_support">你们的支持是我进步的动力!</string>
+
+    <!-- MainFragment -->
+    <string name="is_active">模板已激活</string>
+    <string name="no_active">模板未激活</string>
+    <string name="run_status">模板状态</string>
+    <string name="run_start">启动模板</string>
+    <string name="run_is_start">已启动</string>
+    <string name="run_no_start">未启动</string>
+    <string name="title_function_setting">功能设置</string>
+    <string name="summary_hide_tab">隐藏首页底部的广告Tab</string>
+    <string name="hide_tab">隐藏Tab</string>
+    <string name="make_dialog_cancelable">使弹窗可取消</string>
+    <string name="summary_make_dialog_cancelable">使弹窗变为可按返回键取消</string>
+    <string name="prevent_dialog">阻止部分窗口弹出</string>
+    <string name="summary_prevent_dialog">实验性, 不建议开启</string>
+    <string name="key_words">窗口关键字</string>
+    <string name="dlg_title_key_words">请输入关键字</string>
+    <string name="dlg_msg_key_words">多个关键字用空格分割</string>
+    <string name="title_about">关于</string>
+    <string name="about_run">关于模板</string>
+    <string name="need_protect_package">需要防止检测的应用包名</string>
+    <string name="summary_need_protect_package">xp管理已内置, 无需添加</string>
+    <string name="dlg_title_need_protect_package">请输入应用包名</string>
+    <string name="dlg_msg_need_protect_package">每个应用包名占一行</string>
+    <string name="log_switch">日志开关</string>
+    <string name="summary_log_switch">/data/data/运动世界校园包名/infos_1/infos.txt</string>
+
 </resources>

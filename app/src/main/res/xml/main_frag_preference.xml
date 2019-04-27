@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:title="@string/run_status"
+        android:icon="@drawable/ic_run_status"
+        android:key="status"
+        android:summary="@string/no_active"/>
+
+    <SwitchPreference
+        android:title="@string/run_start"
+        android:key="start"
+        android:icon="@drawable/ic_run_start"
+        android:summaryOn="@string/run_is_start"
+        android:summaryOff="@string/run_no_start"
+        android:defaultValue="false" />
+
+    <PreferenceCategory
+        android:title="@string/title_function_setting"
+        android:dependency="start">
+        <EditTextPreference
+            android:key="need_protect_package"
+            android:title="@string/need_protect_package"
+            android:summary="@string/summary_need_protect_package"
+            android:dialogTitle="@string/dlg_title_need_protect_package"
+            android:dialogMessage="@string/dlg_msg_need_protect_package"/>
+        <SwitchPreference
+            android:key="need_hide_tab"
+            android:title="@string/hide_tab"
+            android:defaultValue="true"
+            android:summary="@string/summary_hide_tab"/>
+        <SwitchPreference
+            android:title="@string/make_dialog_cancelable"
+            android:key="make_dialog_cancelable"
+            android:defaultValue="true"
+            android:summary="@string/summary_make_dialog_cancelable"/>
+        <SwitchPreference
+            android:title="@string/prevent_dialog"
+            android:key="prevent_dialog"
+            android:defaultValue="false"
+            android:summary="@string/summary_prevent_dialog"
+            android:dependency="make_dialog_cancelable"/>
+        <EditTextPreference
+            android:title="@string/key_words"
+            android:key="key_words"
+            android:dialogTitle="@string/dlg_title_key_words"
+            android:dialogMessage="@string/dlg_msg_key_words"
+            android:defaultValue="升级 恭喜"
+            android:dependency="prevent_dialog"/>
+        <SwitchPreference
+            android:title="@string/log_switch"
+            android:key="log_switch"
+            android:defaultValue="false"
+            android:summary="@string/summary_log_switch"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/title_about">
+        <Preference
+            android:title="@string/about_run"
+            android:key="about_run"
+            android:icon="@drawable/ic_about_run"
+            android:fragment="com.mdzz.fragment.AboutFragment"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

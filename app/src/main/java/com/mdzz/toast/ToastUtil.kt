@@ -7,9 +7,9 @@ class ToastUtil {
 
     companion object {
 
-        var toast: Toast? = null
+        private var toast: Toast? = null
 
-        fun makeToast(context: Context, msg: String, time: Int = Toast.LENGTH_SHORT) {
+        fun makeToast(context: Context, msg: CharSequence, time: Int = Toast.LENGTH_SHORT) {
             if (toast == null) {
                 toast = Toast.makeText(context, msg, time)
                 toast?.show()

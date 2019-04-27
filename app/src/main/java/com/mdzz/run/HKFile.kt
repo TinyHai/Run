@@ -1,33 +1,32 @@
 package com.mdzz.run
 
-import android.os.Environment
+import com.mdzz.run.base.BaseHook
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XposedBridge
-import java.io.File
+import de.robv.android.xposed.XposedHelpers
+import java.lang.NullPointerException
 
-class HKFile {
+class HKFile : BaseHook() {
 
-    fun handleLoadPackage() {
-        XposedBridge.hookAllMethods(File::class.java, "list", object : XC_MethodHook() {
-            override fun afterHookedMethod(param: MethodHookParam) {
-                val file = param.thisObject as File
-                if (file.absolutePath.startsWith("/data/data/com.zjwh.android_wh_physicalfitness")) {
-                    return
-                }
-                val obj = param.thisObject
-                when (obj) {
-                    is File -> {
-                        with(obj) {
-                            if (parent == Environment.getExternalStorageDirectory().path
-                                    + "/Android") {
-                                param.result = arrayOf("com.zjwh.android_wh_physicalfitness")
-                            }
-                        }
-                    }
-                }
+    companion object {
+        private const val TAG = "HKFile"
+    }
+
+    override fun beginHook() {
+        val clazz = try {
+            classLoader.loadClass("java.io.FileReader")
+        } catch (th: Throwable) {
+            log(TAG, th)
+            null
+        }
+        XposedHelpers.findAndHookConstructor(clazz, "java.lang.String", MyMethodHook)
+        log(TAG, "run: 模块3工作正常")
+    }
+
+    private object MyMethodHook : XC_MethodHook() {
+        override fun beforeHookedMethod(param: MethodHookParam) {
+            if (param.args[0].toString().startsWith("/proc/")) {
+                param.throwable = NullPointerException("nmsl")
             }
-        })
-
-        XposedBridge.log("run: 模块4工作正常")
+        }
     }
 }

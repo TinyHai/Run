@@ -1,8 +1,7 @@
-package com.mdzz.filter
+package com.mdzz.run.filter
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
-import de.robv.android.xposed.XposedBridge
 
 
 sealed class Filter<T>() {

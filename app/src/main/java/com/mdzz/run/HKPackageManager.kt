@@ -1,82 +1,44 @@
 package com.mdzz.run
 
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import com.mdzz.filter.ApplicationInfoFilter
-import com.mdzz.filter.PackageInfoFilter
-import com.mdzz.log.log
+import com.mdzz.run.base.BaseHook
+import com.mdzz.run.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
-import de.robv.android.xposed.callbacks.XC_LoadPackage
 
-class HKPackageManager {
+class HKPackageManager : BaseHook() {
 
-    fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
-        val clazz = XposedHelpers.findClass("android.app.ApplicationPackageManager",
-                lpparam.classLoader)
-
-        clazz?.let {
-
-            XposedHelpers.findAndHookMethod(it, "getPackageInfo",
-                    String::class.java,
-                    Int::class.javaPrimitiveType,
-                    object : XC_MethodHook() {
-                        override fun afterHookedMethod(param: MethodHookParam) {
-                            if (param.throwable != null) {
-                                return
-                            }
-                            if (isSystemAppAndNotXpManager((param.result as PackageInfo).applicationInfo)
-                                    || param.args[0] == "com.zjwh.android_wh_physicalfitness") {
-                                log(param.args[0])
-                                return
-                            } else {
-                                param.throwable = PackageManager.NameNotFoundException(param.args[0].toString())
-                            }
-                        }
-                    })
-
-            XposedHelpers.findAndHookMethod(it, "getApplicationInfo",
-                    String::class.java,
-                    Int::class.javaPrimitiveType,
-                    object : XC_MethodHook() {
-                        override fun afterHookedMethod(param: MethodHookParam) {
-//                            XposedBridge.log("run: applicationinfo ${param.args[0]}")
-                            if (param.throwable != null) {
-                                return
-                            }
-                            if (isSystemAppAndNotXpManager(param.result as ApplicationInfo)
-                                    || param.args[0] == "com.zjwh.android_wh_physicalfitness") {
-                                log(param.args[0])
-                                return
-                            } else {
-                                param.throwable = PackageManager.NameNotFoundException(param.args[0].toString())
-                            }
-                        }
-                    })
-
-            XposedBridge.hookAllMethods(it, "getInstalledApplications",
-                    object : XC_MethodHook() {
-                        override fun afterHookedMethod(param: MethodHookParam) {
-                            val list = param.result as List<ApplicationInfo>
-                            param.result = ApplicationInfoFilter.filter(list)
-                        }
-                    })
-
-            XposedBridge.hookAllMethods(it, "getInstalledPackages",
-                    object : XC_MethodHook() {
-                        override fun afterHookedMethod(param: MethodHookParam) {
-                            val list = param.result as List<PackageInfo>
-                            param.result = PackageInfoFilter.filter(list)
-                        }
-                    })
-        }
-
-        XposedBridge.log("run: 模块3工作正常")
+    companion object {
+        private const val TAG = "HKPackageManager"
     }
 
-    private fun isSystemAppAndNotXpManager(applicationInfo: ApplicationInfo)
-        = applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0
-            && applicationInfo.packageName != "de.robv.android.xposed.installer"
+    override fun beginHook() {
+        val clazz = XposedHelpers.findClass("android.app.ApplicationPackageManager",
+                classLoader)
+
+        clazz?.let {
+            XposedHelpers.findAndHookMethod(it, "getPackageInfo",
+                    String::class.java, Int::class.javaPrimitiveType, MyMethodHook)
+
+            XposedHelpers.findAndHookMethod(it, "getApplicationInfo",
+                    String::class.java, Int::class.javaPrimitiveType, MyMethodHook)
+        }
+
+        log(TAG, "run: 模块2工作正常")
+    }
+
+    object MyMethodHook : XC_MethodHook() {
+
+        private val stringSet = XSharedPrefUtil.getStringSet(NEED_PROTECT_PACKAGE, delimiter = "\n")
+
+        override fun beforeHookedMethod(param: MethodHookParam) {
+            log(TAG, "stringSet.size = ${stringSet.size}")
+            stringSet.forEach {
+                log(TAG, it)
+            }
+            if (param.args[0] in stringSet || param.args[0] == "de.robv.android.xposed.installer") {
+                param.throwable = PackageManager.NameNotFoundException("nmsl")
+            }
+        }
+    }
 }

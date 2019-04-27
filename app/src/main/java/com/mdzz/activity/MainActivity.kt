@@ -1,164 +1,65 @@
 package com.mdzz.activity
 
 import android.annotation.SuppressLint
-import android.content.*
+import android.app.FragmentTransaction
+import android.content.ComponentName
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import android.preference.PreferenceManager
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Toast
+import com.mdzz.fragment.AboutFragment
+import com.mdzz.fragment.MainFragment
 import com.mdzz.run.BuildConfig
 import com.mdzz.run.R
-import com.mdzz.toast.ToastUtil
-import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.StringBuilder
-import java.net.URLEncoder
-import android.content.Intent
+import com.mdzz.util.FileUtil
+import java.io.File
 
-
-class MainActivity : AppCompatActivity(), View.OnClickListener {
-
-    private val TAG = "MainActivity"
-
-    private var agreementDialog: AlertDialog.Builder? = null
-
-    private var updateInfoDialog: AlertDialog.Builder? = null
-
-    private lateinit var clipboardManager: ClipboardManager
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        initView()
-        initListener()
+        setContentView(R.layout.my_main_layout)
+        setupFragment(MAIN_FRAGMENT)
+        makePrefReadable()
     }
 
-    private fun initView() {
-        if (isActive()) {
-            with(isActiveImage) {
-                setBackgroundColor(resources.getColor(R.color.is_active_color))
-            }
-            with(isActiveText) {
-                text = resources.getString(R.string.is_active)
-                setTextColor(resources.getColor(R.color.is_active_color))
-            }
-        }
-        with(versionTV) {
-            text = getString(R.string.version, BuildConfig.VERSION_NAME)
-        }
+    override fun onResume() {
+        super.onResume()
+        makePrefReadable()
     }
 
-    private fun initListener() {
-        isActiveCV.setOnClickListener(this)
-        agreementCV.setOnClickListener(this)
-        feedbackCV.setOnClickListener(this)
-        clouddiskCV.setOnClickListener(this)
-        payCV.setOnClickListener(this)
-        payCodeCV.setOnClickListener(this)
-        updateInfoCV.setOnClickListener(this)
-        githubCV.setOnClickListener(this)
+    override fun onDestroy() {
+        super.onDestroy()
+        makePrefReadable()
+    }
+
+    fun setupFragment(flag: Int) {
+        val fragment = when (flag) {
+            MAIN_FRAGMENT -> {
+                val bundle = Bundle()
+                bundle.putBoolean(MainFragment.IS_ACTIVE, isActive())
+                MainFragment.newInstance(this, bundle)
+            }
+            ABOUT_FRAGMENT -> AboutFragment.newInstance(this)
+            else -> null
+        }
+        if (fragment != null) {
+            val fm = fragmentManager.beginTransaction()
+                    .replace(R.id.pref_fragment, fragment)
+                    .setCustomAnimations(FragmentTransaction.TRANSIT_FRAGMENT_FADE,
+                            FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            if (flag == ABOUT_FRAGMENT) {
+                fm.addToBackStack(null)
+            }
+            fm.commit()
+        }
     }
 
     private fun isActive() = false
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.isActiveCV -> openXposedInstaller()
-
-            R.id.agreementCV -> showAgreementDialog()
-
-            R.id.feedbackCV -> {
-                clipboardManager.primaryClip = ClipData.newPlainText("QQ", "2071769694")
-                ToastUtil.makeToast(this, "QQ号已复制到剪贴板")
-            }
-
-            R.id.clouddiskCV -> openUri(Uri.parse(getString(R.string.url_clouddisk)))
-
-            R.id.payCV -> {
-                if (hasInstalledIt("com.eg.android.AlipayGphone")) {
-                    openUri(getAliPayUri())
-                } else {
-                    ToastUtil.makeToast(this, "请先安装支付宝后重试")
-                }
-            }
-
-            R.id.payCodeCV -> {
-                clipboardManager.primaryClip = ClipData.newPlainText("payCode", "559532805")
-                ToastUtil.makeToast(this, "推广码已复制到剪贴板，请到支付宝应用首页搜索即可领取红包",
-                        Toast.LENGTH_LONG)
-            }
-
-            R.id.githubCV -> openUri(Uri.parse(getString(R.string.url_github)))
-
-            R.id.updateInfoCV -> showUpdateInfoDialog()
-        }
-    }
-
-    private fun showAgreementDialog() = with(agreementDialog) {
-        if (this == null) {
-            agreementDialog = AlertDialog.Builder(this@MainActivity)
-                    .setTitle("免责声明")
-                    .setMessage(getString(R.string.agrement_info))
-                    .setPositiveButton("OK", null)
-            agreementDialog
-        } else {
-            this
-        }
-    }?.show()
-
-    private fun getAliPayUri() = Uri.parse(StringBuilder().apply {
-        append("alipayqr://platformapi/startapp?saId=10000007&clientVersion=3.7." +
-                "0.0718&qrcode=")
-        append(URLEncoder.encode("https://qr.alipay.com/fkx01115ah2xqiekouwoh" +
-                "cb?t=1542454581386", "utf-8"))
-        append("%3F_s%3Dweb-other&_t=")
-        append(System.currentTimeMillis())
-    }.toString())
-
-    private fun showUpdateInfoDialog() = with(updateInfoDialog) {
-        if (this == null) {
-            updateInfoDialog = AlertDialog.Builder(this@MainActivity)
-                    .setTitle("更新日志")
-                    .setMessage(getString(R.string.update_info_data))
-                    .setPositiveButton("OK", null)
-            updateInfoDialog
-        } else {
-            this
-        }
-    }?.show()
-
-    private fun openUri(uri: Uri) {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = uri
-        startActivity(intent)
-    }
-
-    private fun openXposedInstaller() {
-        if (hasInstalledIt("de.robv.android.xposed.installer")) {
-            val intent = Intent()
-            intent.let {
-                it.setComponent(ComponentName("de.robv.android.xposed.installer",
-                        "de.robv.android.xposed.installer.WelcomeActivity"))
-                it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .putExtra("fragment", 1)
-                startActivity(it)
-            }
-        } else {
-            ToastUtil.makeToast(this, "请先安装XposedInstaller后重试")
-        }
-    }
-
-    private fun hasInstalledIt(pkgName: String) = try {
-        packageManager.getPackageInfo(pkgName, 0)
-        true
-    } catch (e: PackageManager.NameNotFoundException) {
-        false
-    }
 
     private fun setAliasStatus() {
         if (isAliasHide()) {
@@ -171,6 +72,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     PackageManager.DONT_KILL_APP)
         }
     }
+
 
     @SuppressLint("SwitchIntDef")
     private fun isAliasHide() = when (packageManager.getComponentEnabledSetting(
@@ -186,10 +88,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         menu.findItem(R.id.icon_hide_mene).apply {
-            if (isAliasHide()) {
-                title = getString(R.string.view_icon)
+            title = if (isAliasHide()) {
+                getString(R.string.view_icon)
             } else {
-                title = getString(R.string.hide_icon)
+                getString(R.string.hide_icon)
             }
         }
         return super.onCreateOptionsMenu(menu)
@@ -207,5 +109,23 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    @SuppressLint("SetWorldReadable")
+    private fun makePrefReadable() {
+        arrayOf(FileUtil.getDataFile(this), FileUtil.getPrefDirFile(this),
+                FileUtil.getPrefFile(this)).forEach {
+            if (it.exists()) {
+                it.setReadable(true, false)
+            }
+        }
+    }
+
+    companion object {
+        private const val TAG = "MainActivity"
+
+        const val MAIN_FRAGMENT = 1 shl 3
+
+        const val ABOUT_FRAGMENT = 1 shl 4
     }
 }
