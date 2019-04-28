@@ -14,7 +14,7 @@ class XposedInit : IXposedHookLoadPackage {
         if (lpparam.packageName == HOOK_PACKAGE
                 && lpparam.processName == HOOK_PACKAGE) {
             if (XSharedPrefUtil.getBoolean(HOOK_START)) {
-                HKApplication().getClassLoaderAndStartHook(lpparam)
+                HKInstrumentation().getClassLoaderAndStartHook(lpparam)
             }
         }
     }

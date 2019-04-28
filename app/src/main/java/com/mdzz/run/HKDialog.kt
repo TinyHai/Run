@@ -111,10 +111,12 @@ class HKDialog : BaseHook() {
                     }
                 }
             }
-            textViews.forEach {
-                if (it.text in stringSet) {
-                    log(TAG, it::class.java.name + " text = ${it.text}")
-                    return true
+            textViews.forEach { tv ->
+                stringSet.forEach {
+                    if (it.contains(tv.text)) {
+                        log(TAG, it::class.java.name + " text = ${tv.text}")
+                        return true
+                    }
                 }
             }
             return false

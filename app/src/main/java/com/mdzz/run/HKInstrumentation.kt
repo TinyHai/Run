@@ -5,31 +5,35 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
-class HKApplication {
+class HKInstrumentation {
 
     companion object {
-        private const val TAG = "HKApplication"
+        private const val TAG = "HKInstrumentation"
     }
 
     fun getClassLoaderAndStartHook(lpparam: XC_LoadPackage.LoadPackageParam) {
         try {
             val clazz = try {
-                lpparam.classLoader.loadClass("s.h.e.l.l.S")
+                lpparam.classLoader.loadClass("android.app.Instrumentation")
             } catch (th: Throwable) {
-                lpparam.classLoader.loadClass("com.zjwh.android_wh_physicalfitness.application.MyApplication")
+                BaseHook.log(TAG, th)
+                null
             }
-            XposedHelpers.findAndHookMethod(clazz, "onCreate", MyMethodHook)
+            XposedHelpers.findAndHookMethod(clazz, "newApplication",
+                    "java.lang.ClassLoader", "java.lang.String",
+                    "android.content.Context", MyMethodHook)
         } catch (th: Throwable) {
             BaseHook.log(TAG, th)
         }
     }
 
     object MyMethodHook : XC_MethodHook() {
+
         override fun afterHookedMethod(param: MethodHookParam) {
-            val context = param.thisObject
-            val getClassLoader = context::class.java.getMethod("getClassLoader")
-            val classLoader = getClassLoader.invoke(context) as ClassLoader
-            startHookByClassLoader(classLoader)
+            if (param.args[1] == "com.zjwh.android_wh_physicalfitness.application.MyApplication") {
+                val classLoader = param.args[0] as ClassLoader
+                startHookByClassLoader(classLoader)
+            }
         }
 
         private fun startHookByClassLoader(classLoader: ClassLoader) {
