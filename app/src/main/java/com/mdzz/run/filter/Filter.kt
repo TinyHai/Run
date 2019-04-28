@@ -10,6 +10,10 @@ sealed class Filter<T> {
     abstract fun filter(list: List<T>): List<T>
 
     fun get(list: List<T>) = if (result.isEmpty()) filter(list) else result
+
+    companion object {
+        fun isSystemApp(flags: Int) = (flags and ApplicationInfo.FLAG_SYSTEM) > 0
+    }
 }
 
 object PackageInfoFilter : Filter<PackageInfo>() {
@@ -17,7 +21,7 @@ object PackageInfoFilter : Filter<PackageInfo>() {
     override fun filter(list: List<PackageInfo>) = result.apply {
         if (isEmpty()) {
             for (info in list) {
-                if ((info.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) > 0) {
+                if (isSystemApp(info.applicationInfo.flags)) {
                     if (info.packageName == "de.robv.android.xposed.installer") {
                         continue
                     }
@@ -33,7 +37,7 @@ object ApplicationInfoFilter : Filter<ApplicationInfo>() {
     override fun filter(list: List<ApplicationInfo>) = result.apply {
         if (isEmpty()) {
             for (info in list) {
-                if ((info.flags and ApplicationInfo.FLAG_SYSTEM) > 0) {
+                if (isSystemApp(info.flags)) {
                     if (info.packageName == "de.robv.android.xposed.installer") {
                         continue
                     }

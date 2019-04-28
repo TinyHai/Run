@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import com.mdzz.run.base.BaseHook
 import com.mdzz.run.filter.ApplicationInfoFilter
+import com.mdzz.run.filter.Filter
 import com.mdzz.run.filter.PackageInfoFilter
 import com.mdzz.run.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodHook
@@ -57,7 +58,7 @@ class HKPackageManager : BaseHook() {
 
         private val stringSet = XSharedPrefUtil.getStringSet(NEED_PROTECT_PACKAGE, delimiter = "\n")
 
-        override fun beforeHookedMethod(param: MethodHookParam) {
+        override fun afterHookedMethod(param: MethodHookParam) {
             log(TAG, "stringSet.size = ${stringSet.size}")
             stringSet.forEach {
                 log(TAG, it)
@@ -65,6 +66,26 @@ class HKPackageManager : BaseHook() {
             log(TAG, param.args[0].toString())
             if (param.args[0] in stringSet || param.args[0] == "de.robv.android.xposed.installer") {
                 param.throwable = PackageManager.NameNotFoundException("nmsl")
+                return
+            }
+            when (param.result::class.java.simpleName) {
+                "ApplicationInfo" -> {
+                    val applicationInfo = param.result as ApplicationInfo
+                    if (Filter.isSystemApp(applicationInfo.flags)) {
+                        return
+                    } else {
+                        param.throwable = PackageManager.NameNotFoundException("nmsl")
+                    }
+                }
+                "PackageInfo" -> {
+                    val packageInfo = param.result as PackageInfo
+                    if (Filter.isSystemApp(packageInfo.applicationInfo.flags)) {
+                        return
+                    } else {
+                        param.throwable = PackageManager.NameNotFoundException("nmsl")
+                    }
+                }
+                else -> {}
             }
         }
     }
