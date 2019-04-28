@@ -4,7 +4,7 @@
     <string name="app_name">Run</string>
 
     <string name="agrement_info">此软件仅仅为了解决Xposed框架与某跑步软件的兼容性问题，请勿用作其他用途，如若不然，后果由你自己承担，与作者无关！</string>
-    <string name="update_info_data">1-基于1.8.0修复崩溃问题\n2-重构代码\n3-屏蔽弹窗改为按关键字匹配, 无需完整字段\n4-更新版本号</string>
+    <string name="update_info_data">1-基于1.8.0修复崩溃问题\n2-重构代码\n3-屏蔽弹窗改为按关键字匹配, 无需完整字段\n4-把用户应用检测逻辑加回去了, 太多人装了被检测的应用\n5-更新版本号</string>
 
     <!-- menu -->
     <string name="hide_icon">隐藏图标</string>
