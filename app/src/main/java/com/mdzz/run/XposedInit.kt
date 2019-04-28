@@ -9,10 +9,14 @@ class XposedInit : IXposedHookLoadPackage {
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if (lpparam.packageName == "com.mdzz.hook") {
             check(lpparam.classLoader)
+            XposedBridge.log("Run begin")
+            XposedBridge.log(XSharedPrefUtil.getBoolean(HOOK_START).toString())
+            XposedBridge.log(XSharedPrefUtil.getBoolean(NEED_HIDE_TAB).toString())
+            XposedBridge.log(XSharedPrefUtil.getBoolean(LOG_SWICH).toString())
             return
         }
-        if (lpparam.packageName == HOOK_PACKAGE
-                && lpparam.processName == HOOK_PACKAGE) {
+        if (lpparam.packageName == HOOK_PACKAGE) {
+            XposedBridge.log(lpparam.packageName + " " + lpparam.processName)
             if (XSharedPrefUtil.getBoolean(HOOK_START)) {
                 HKInstrumentation().getClassLoaderAndStartHook(lpparam)
             }

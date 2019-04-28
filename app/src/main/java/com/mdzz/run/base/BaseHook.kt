@@ -10,7 +10,7 @@ abstract class BaseHook {
 
     companion object {
         private val mOpenLog: Boolean
-            get() = XSharedPrefUtil.getBoolean(LOG_SWICH)
+            get() = true /*XSharedPrefUtil.getBoolean(LOG_SWICH)*/
 
         @JvmStatic
         lateinit var classLoader: ClassLoader

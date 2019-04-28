@@ -117,6 +117,7 @@ class MainActivity : AppCompatActivity() {
                 FileUtil.getPrefFile(this)).forEach {
             if (it.exists()) {
                 it.setReadable(true, false)
+                it.setExecutable(true, false)
             }
         }
     }
