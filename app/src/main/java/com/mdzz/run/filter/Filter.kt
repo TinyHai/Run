@@ -2,6 +2,7 @@ package com.mdzz.run.filter
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
+import com.mdzz.run.HOOK_PACKAGE
 
 
 sealed class Filter<T> {
@@ -21,6 +22,9 @@ object PackageInfoFilter : Filter<PackageInfo>() {
     override fun filter(list: List<PackageInfo>) = result.apply {
         if (isEmpty()) {
             for (info in list) {
+                if (info.packageName == HOOK_PACKAGE) {
+                    add(info)
+                }
                 if (isSystemApp(info.applicationInfo.flags)) {
                     if (info.packageName == "de.robv.android.xposed.installer") {
                         continue
@@ -37,6 +41,9 @@ object ApplicationInfoFilter : Filter<ApplicationInfo>() {
     override fun filter(list: List<ApplicationInfo>) = result.apply {
         if (isEmpty()) {
             for (info in list) {
+                if (info.packageName == HOOK_PACKAGE) {
+                    add(info)
+                }
                 if (isSystemApp(info.flags)) {
                     if (info.packageName == "de.robv.android.xposed.installer") {
                         continue

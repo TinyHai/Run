@@ -64,6 +64,9 @@ class HKPackageManager : BaseHook() {
                 log(TAG, it)
             }
             log(TAG, param.args[0].toString())
+            if (param.args[0] == HOOK_PACKAGE) {
+                return
+            }
             if (param.args[0] in stringSet || param.args[0] == "de.robv.android.xposed.installer") {
                 param.throwable = PackageManager.NameNotFoundException("nmsl")
                 return
