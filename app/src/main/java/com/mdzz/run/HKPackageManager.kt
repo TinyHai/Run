@@ -56,40 +56,50 @@ class HKPackageManager : BaseHook() {
 
     object MyMethodHook : XC_MethodHook() {
 
-        private val stringSet = XSharedPrefUtil.getStringSet(NEED_PROTECT_PACKAGE, delimiter = "\n")
+        private val protectedPackageNames = XSharedPrefUtil.getStringSet(NEED_PROTECT_PACKAGE, delimiter = "\n")
 
         override fun afterHookedMethod(param: MethodHookParam) {
-            log(TAG, "stringSet.size = ${stringSet.size}")
-            stringSet.forEach {
+            log(TAG, "protectedPackageNames.size = ${protectedPackageNames.size}")
+            protectedPackageNames.forEach {
                 log(TAG, it)
             }
             log(TAG, param.args[0].toString())
             if (param.args[0] == HOOK_PACKAGE) {
                 return
             }
-            if (param.args[0] in stringSet || param.args[0] == "de.robv.android.xposed.installer") {
+            if (needProtected(param.args[0].toString())) {
                 param.throwable = PackageManager.NameNotFoundException("nmsl")
                 return
             }
-            when (param.result::class.java.simpleName) {
-                "ApplicationInfo" -> {
-                    val applicationInfo = param.result as ApplicationInfo
-                    if (Filter.isSystemApp(applicationInfo.flags)) {
-                        return
-                    } else {
-                        param.throwable = PackageManager.NameNotFoundException("nmsl")
+            if (hasResult(param)) {
+                when (param.result::class.java.simpleName) {
+                    "ApplicationInfo" -> {
+                        val applicationInfo = param.result as ApplicationInfo
+                        if (Filter.isSystemApp(applicationInfo.flags)) {
+                            return
+                        } else {
+                            param.throwable = PackageManager.NameNotFoundException("nmsl")
+                        }
+                    }
+                    "PackageInfo" -> {
+                        val packageInfo = param.result as PackageInfo
+                        if (Filter.isSystemApp(packageInfo.applicationInfo.flags)) {
+                            return
+                        } else {
+                            param.throwable = PackageManager.NameNotFoundException("nmsl")
+                        }
+                    }
+                    else -> {
                     }
                 }
-                "PackageInfo" -> {
-                    val packageInfo = param.result as PackageInfo
-                    if (Filter.isSystemApp(packageInfo.applicationInfo.flags)) {
-                        return
-                    } else {
-                        param.throwable = PackageManager.NameNotFoundException("nmsl")
-                    }
-                }
-                else -> {}
             }
         }
+
+        private fun hasResult(param: MethodHookParam): Boolean {
+            return param.throwable != null
+        }
+
+        private fun needProtected(packageName: String) = packageName in protectedPackageNames
+                || packageName == "de.robv.android.xposed.installer"
     }
 }
