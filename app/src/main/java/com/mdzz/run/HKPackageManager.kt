@@ -19,14 +19,14 @@ class HKPackageManager : BaseHook() {
     }
 
     override fun beginHook() {
-        val clazz = try {
+        val appPackageManagerClass = try {
             XposedHelpers.findClass("android.app.ApplicationPackageManager",
                     classLoader)
         } catch (th: Throwable) {
             log(TAG, th)
             null
         }
-        clazz?.let {
+        appPackageManagerClass?.let {
             XposedHelpers.findAndHookMethod(it, "getPackageInfo",
                     String::class.java, Int::class.javaPrimitiveType, MyMethodHook)
             XposedHelpers.findAndHookMethod(it, "getApplicationInfo",
@@ -96,7 +96,7 @@ class HKPackageManager : BaseHook() {
         }
 
         private fun hasResult(param: MethodHookParam): Boolean {
-            return param.throwable != null
+            return param.throwable == null
         }
 
         private fun needProtected(packageName: String) = packageName in protectedPackageNames
