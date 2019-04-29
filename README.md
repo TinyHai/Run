@@ -4,4 +4,5 @@
 
 [tanke分支](https://github.com/TinyHai/Run/tree/tanke): 在master分支上添加了hook某乐跑软件<br>
 
-Run下载地址： https://pan.baidu.com/s/1yENMocHijwbhnrCj5afTIg
+Run下载地址1： [百度云盘](https://pan.baidu.com/s/1yENMocHijwbhnrCj5afTIg)
+Run下载地址2:  [Release](https://github.com/TinyHai/Run/releases)
