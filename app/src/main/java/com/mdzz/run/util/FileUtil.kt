@@ -1,9 +1,7 @@
 package com.mdzz.run.util
 
 import de.robv.android.xposed.XposedBridge
-import java.io.File
-import java.io.FileWriter
-import java.io.IOException
+import java.io.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.concurrent.thread
@@ -47,6 +45,8 @@ object FileUtil {
     }
 
     fun saveInfo(tag: String, th: Throwable) {
-        this.saveInfo(tag, th.message)
+        val stringWriter = StringWriter()
+        th.printStackTrace(PrintWriter(stringWriter))
+        this.saveInfo(tag, stringWriter.buffer.toString())
     }
 }

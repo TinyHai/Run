@@ -1,10 +1,12 @@
 package com.mdzz.run
 
+import android.app.Activity
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.mdzz.run.base.BaseHook
 import com.mdzz.run.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodHook
+import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import java.lang.reflect.Field
 
@@ -25,7 +27,6 @@ class HKForHideTab : BaseHook() {
             log(TAG, e)
         }
         XposedHelpers.findAndHookMethod(clazz, "onResume", MyMethodHook)
-
         log(TAG, "run: 模块4工作正常")
     }
 

@@ -59,11 +59,9 @@ class HKPackageManager : BaseHook() {
         private val protectedPackageNames = XSharedPrefUtil.getStringSet(NEED_PROTECT_PACKAGE, delimiter = "\n")
 
         override fun afterHookedMethod(param: MethodHookParam) {
-            log(TAG, "protectedPackageNames.size = ${protectedPackageNames.size}")
             protectedPackageNames.forEach {
                 log(TAG, it)
             }
-            log(TAG, param.args[0].toString())
             if (param.args[0] == HOOK_PACKAGE) {
                 return
             }
@@ -76,6 +74,7 @@ class HKPackageManager : BaseHook() {
                     "ApplicationInfo" -> {
                         val applicationInfo = param.result as ApplicationInfo
                         if (Filter.isSystemApp(applicationInfo.flags)) {
+                            logSystemAppPackageName(param.args[0].toString())
                             return
                         } else {
                             param.throwable = PackageManager.NameNotFoundException("nmsl")
@@ -84,6 +83,7 @@ class HKPackageManager : BaseHook() {
                     "PackageInfo" -> {
                         val packageInfo = param.result as PackageInfo
                         if (Filter.isSystemApp(packageInfo.applicationInfo.flags)) {
+                            logSystemAppPackageName(param.args[0].toString())
                             return
                         } else {
                             param.throwable = PackageManager.NameNotFoundException("nmsl")
@@ -93,6 +93,10 @@ class HKPackageManager : BaseHook() {
                     }
                 }
             }
+        }
+
+        private fun logSystemAppPackageName(packageName: String) {
+            log(TAG, packageName)
         }
 
         private fun hasResult(param: MethodHookParam): Boolean {

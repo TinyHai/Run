@@ -45,6 +45,7 @@ class HKInstrumentation {
                 add(HKFile())
                 add(HKForHideTab())
                 add(HKDialog())
+                add(HKMethod())
                 forEach {
                     it.beginHook()
                 }
