@@ -16,6 +16,7 @@ import com.mdzz.fragment.MainFragment
 import com.mdzz.run.BuildConfig
 import com.mdzz.run.R
 import com.mdzz.util.FileUtil
+import de.robv.android.xposed.XposedBridge
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
@@ -59,7 +60,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun isActive() = false
+    private fun isActive(): Boolean {
+        XposedBridge.log("run: ")
+        return false
+    }
 
     private fun setAliasStatus() {
         if (isAliasHide()) {

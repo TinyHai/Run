@@ -31,7 +31,7 @@ class HKDialog : BaseHook() {
                 MyCancelListenerMethodHook)
         if (XSharedPrefUtil.getBoolean(PREVENT_DIALOG)) {
             XposedHelpers.findAndHookMethod("android.app.Dialog", classLoader,
-                    "sendShowMessage", MyShowMethodHook)
+                    "show", MyShowMethodHook)
         }
         log(TAG, "run: 模块5工作正常")
     }
@@ -85,7 +85,7 @@ class HKDialog : BaseHook() {
             mDecor?.let {
                 mNeedPrevent = shouldPrevent(it as ViewGroup)
             }
-            setVisibility?.invoke(mDecor, 0)
+            setVisibility?.invoke(mDecor, if (mNeedPrevent) 8 else 0)
         }
 
         override fun afterHookedMethod(param: MethodHookParam) {
