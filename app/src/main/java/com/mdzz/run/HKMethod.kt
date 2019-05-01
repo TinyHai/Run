@@ -24,6 +24,7 @@ class HKMethod : BaseHook() {
 
     object MyMethodHook : XC_MethodHook() {
         override fun beforeHookedMethod(param: MethodHookParam) {
+            log(TAG, "isNative be false")
             param.result = false
         }
     }

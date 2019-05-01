@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.mdzz.fragment.AboutFragment
@@ -18,6 +19,7 @@ import com.mdzz.run.R
 import com.mdzz.util.FileUtil
 import de.robv.android.xposed.XposedBridge
 import java.io.File
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
 
@@ -61,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun isActive(): Boolean {
-        XposedBridge.log("run: ")
+        Log.v("Run: ", "running")
         return false
     }
 
