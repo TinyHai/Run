@@ -57,7 +57,8 @@ class HKDialog : BaseHook() {
 
         private var mNeedPrevent = false
 
-        private val stringSet = XSharedPrefUtil.getStringSet(KEY_WORDS)
+        private val dialogKeyWords
+            get() = XSharedPrefUtil.getStringSet(KEY_WORDS)
 
         override fun beforeHookedMethod(param: MethodHookParam) {
             log(TAG, "${param.thisObject::class.java.name}: ${param.method.name}")
@@ -112,7 +113,7 @@ class HKDialog : BaseHook() {
                 }
             }
             textViews.forEach { tv ->
-                stringSet.forEach {
+                dialogKeyWords.forEach {
                     if (tv.text.contains(it)) {
                         log(TAG, it::class.java.name + " text = ${tv.text}")
                         return true
@@ -122,22 +123,7 @@ class HKDialog : BaseHook() {
             return false
         }
 
-//        private fun showView(viewGroup: ViewGroup, pos: Int) {
-//            val isGone = viewGroup.visibility == View.GONE
-//            if (isGone) {
-//                log(TAG, 8.toString())
-//                return
-//            }
-//            log(TAG, viewGroup::class.java.name + " $pos")
-//            for (index in 0 until viewGroup.childCount) {
-//                val view = viewGroup.getChildAt(index)
-//                if (view is ViewGroup) {
-//                    showView(view, index)
-//                }
-//                log(TAG, viewGroup::class.java.name + "->" + view::class.java.name + " $index")
-//            }
-//        }
-
-        private fun isNotBottomSheetDialog(dialog: Any) = dialog::class.java.name != "android.support.design.widget.BottomSheetDialog"
+        private fun isNotBottomSheetDialog(dialog: Any)
+                = dialog::class.java.name != "android.support.design.widget.BottomSheetDialog"
     }
 }

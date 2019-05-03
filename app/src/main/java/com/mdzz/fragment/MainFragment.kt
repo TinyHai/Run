@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceScreen
+import android.text.TextUtils
 import com.mdzz.activity.MainActivity
 import com.mdzz.run.R
 import com.mdzz.toast.ToastUtil
@@ -45,10 +46,22 @@ class MainFragment(activity: MainActivity?) : BasePreferenceFragment(activity) {
     }
 
     private fun openXposedInstaller() {
-        if (PackageUtil.hasInstalledIt(activity, "de.robv.android.xposed.installer")) {
+
+        val xpManagerPackageNames = arrayOf("com.solohsu.android.edxp.manager", "de.robv.android.xposed.installer")
+
+        var installedPackageName = ""
+
+        xpManagerPackageNames.forEach {
+            if (PackageUtil.hasInstalledIt(activity, it)) {
+                installedPackageName = it
+                return@forEach
+            }
+        }
+
+        if (installedPackageName != "") {
             val intent = Intent()
             intent.let {
-                it.component = ComponentName("de.robv.android.xposed.installer",
+                it.component = ComponentName(installedPackageName,
                         "de.robv.android.xposed.installer.WelcomeActivity")
                 it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .putExtra("fragment", 1)

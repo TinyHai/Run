@@ -56,7 +56,8 @@ class HKPackageManager : BaseHook() {
 
     object MyMethodHook : XC_MethodHook() {
 
-        private val protectedPackageNames = XSharedPrefUtil.getStringSet(NEED_PROTECT_PACKAGE, delimiter = "\n")
+        private val protectedPackageNames
+                get() = XSharedPrefUtil.getStringSet(NEED_PROTECT_PACKAGE, delimiter = "\n")
 
         override fun afterHookedMethod(param: MethodHookParam) {
             protectedPackageNames.forEach {
