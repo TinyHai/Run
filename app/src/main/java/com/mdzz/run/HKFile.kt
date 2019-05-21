@@ -3,7 +3,7 @@ package com.mdzz.run
 import com.mdzz.run.base.BaseHook
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
-import java.lang.NullPointerException
+import java.io.FileNotFoundException
 
 class HKFile : BaseHook() {
 
@@ -25,7 +25,7 @@ class HKFile : BaseHook() {
     private object MyMethodHook : XC_MethodHook() {
         override fun beforeHookedMethod(param: MethodHookParam) {
             if (param.args[0].toString().startsWith("/proc/")) {
-                param.throwable = NullPointerException("nmsl")
+                param.throwable = FileNotFoundException("nmsl")
             }
         }
     }

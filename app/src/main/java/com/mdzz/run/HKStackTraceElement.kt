@@ -18,7 +18,8 @@ class HKStackTraceElement : BaseHook() {
 
     private object MyMethodHook : XC_MethodHook() {
 
-        private val stringSet = setOf("com.android.internal.os.ZygoteInit", "de.robv.android.xposed.XposedBridge")
+        private val stringSet = setOf("com.android.internal.os.ZygoteInit",
+                "de.robv.android.xposed.XposedBridge")
 
         override fun afterHookedMethod(param: MethodHookParam) {
             if (param.result in stringSet) {
