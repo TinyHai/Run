@@ -30,7 +30,7 @@ class HKInstrumentation {
     object MyMethodHook : XC_MethodHook() {
 
         override fun afterHookedMethod(param: MethodHookParam) {
-            if (param.args[1] == "com.zjwh.android_wh_physicalfitness.application.MyApplication") {
+            if (param.args[1] == HOOK_APPLICATION) {
                 val classLoader = param.args[0] as ClassLoader
                 startHookByClassLoader(classLoader)
             }
@@ -40,14 +40,16 @@ class HKInstrumentation {
             BaseHook.log(TAG, "run: working!")
             BaseHook.classLoader = classLoader
             ArrayList<BaseHook>().apply {
-                add(HKStackTraceElement())
+                add(HKApplication())
+                add(HKThrowable())
                 add(HKPackageManager())
-                add(HKFile())
                 add(HKForHideTab())
                 add(HKDialog())
                 add(HKMethod())
+                add(HKList())
                 forEach {
                     it.beginHook()
+                    BaseHook.log(TAG, it::class.java.simpleName)
                 }
             }.clear()
         }

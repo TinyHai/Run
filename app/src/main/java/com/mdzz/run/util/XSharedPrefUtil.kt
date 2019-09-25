@@ -15,6 +15,7 @@ object XSharedPrefUtil {
             mXSharedPref = WeakReference(xsf)
         }
         val pref = mXSharedPref.get()
+        pref?.makeWorldReadable()
         pref?.reload()
         return pref!!
     }

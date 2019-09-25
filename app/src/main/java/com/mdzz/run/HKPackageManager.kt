@@ -10,6 +10,7 @@ import com.mdzz.run.filter.PackageInfoFilter
 import com.mdzz.run.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
+import java.util.LinkedHashSet
 
 @Suppress("UNCHECKED_CAST")
 class HKPackageManager : BaseHook() {
@@ -59,15 +60,15 @@ class HKPackageManager : BaseHook() {
         private val protectedPackageNames
                 get() = XSharedPrefUtil.getStringSet(NEED_PROTECT_PACKAGE, delimiter = "\n")
 
-        override fun afterHookedMethod(param: MethodHookParam) {
-            protectedPackageNames.forEach {
-                log(TAG, it)
-            }
-            if (param.args[0] == HOOK_PACKAGE) {
+        override fun beforeHookedMethod(param: MethodHookParam) {
+            val packageName = param.args[0] as String
+
+            if (packageName.startsWith("android.") || packageName.contains(HOOK_PACKAGE)) {
                 return
             }
-            if (needProtected(param.args[0].toString())) {
-                param.throwable = PackageManager.NameNotFoundException("nmsl")
+            if (needProtected(packageName)) {
+//                log(TAG, "checked $packageName")
+                param.throwable = PackageManager.NameNotFoundException(packageName)
                 return
             }
             if (hasResult(param)) {
@@ -75,36 +76,36 @@ class HKPackageManager : BaseHook() {
                     "ApplicationInfo" -> {
                         val applicationInfo = param.result as ApplicationInfo
                         if (Filter.isSystemApp(applicationInfo.flags)) {
-                            logSystemAppPackageName(param.args[0].toString())
                             return
                         } else {
-                            param.throwable = PackageManager.NameNotFoundException("nmsl")
+//                            log(TAG, "checked $packageName")
+                            param.throwable = PackageManager.NameNotFoundException(packageName)
                         }
                     }
                     "PackageInfo" -> {
                         val packageInfo = param.result as PackageInfo
                         if (Filter.isSystemApp(packageInfo.applicationInfo.flags)) {
-                            logSystemAppPackageName(param.args[0].toString())
                             return
                         } else {
-                            param.throwable = PackageManager.NameNotFoundException("nmsl")
+//                            log(TAG, "checked $packageName")
+                            param.throwable = PackageManager.NameNotFoundException(packageName)
                         }
-                    }
-                    else -> {
                     }
                 }
             }
-        }
-
-        private fun logSystemAppPackageName(packageName: String) {
-            log(TAG, packageName)
         }
 
         private fun hasResult(param: MethodHookParam): Boolean {
             return param.throwable == null
         }
 
-        private fun needProtected(packageName: String) = packageName in protectedPackageNames
-                || packageName == "de.robv.android.xposed.installer"
+        private fun needProtected(packageName: String): Boolean {
+            protectedPackageNames.forEach {
+                if (packageName.hashCode() == it.hashCode()) {
+                    return true
+                }
+            }
+            return packageName == "de.robv.android.xposed.installer"
+        }
     }
 }

@@ -1,11 +1,14 @@
 package com.mdzz.run
 
+import android.app.Dialog
 import android.view.ViewGroup
 import android.widget.TextView
 import com.mdzz.run.base.BaseHook
 import com.mdzz.run.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodHook
+import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
+import java.lang.NullPointerException
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -33,7 +36,7 @@ class HKDialog : BaseHook() {
             XposedHelpers.findAndHookMethod("android.app.Dialog", classLoader,
                     "show", MyShowMethodHook)
         }
-        log(TAG, "run: 模块5工作正常")
+        log(TAG, "run: 模块4工作正常")
     }
 
     private object MySetTrueMethodHook : XC_MethodHook() {

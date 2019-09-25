@@ -2,6 +2,7 @@ package com.mdzz.run.util
 
 import de.robv.android.xposed.XposedBridge
 import java.io.*
+import java.lang.Exception
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlin.concurrent.thread
@@ -12,34 +13,33 @@ object FileUtil {
         Executors.newFixedThreadPool(1)
     }
 
+    private val file = File("/data/data/com.zjwh.android_wh_physicalfitness/infos_1")
+    private val infoFile = File(file, "infos.txt")
+    private val fileWriter = FileWriter(infoFile, true)
+
     fun saveInfo(tag: String, info: String?) {
         threadExecutor.submit {
-            var fileWriter: FileWriter? = null
             try {
-                val file = File("/data/data/com.zjwh.android_wh_physicalfitness/infos_1")
                 if (file.exists() && !file.isDirectory) {
                     file.delete()
                 } else if (!file.exists()) {
                     file.mkdir()
                 }
-                val infoFile = File(file, "infos.txt")
                 if (!infoFile.exists()) {
                     infoFile.createNewFile()
                 }
-                if (file.length() > 10 * (2 shr 20)) {
-                    file.delete()
-                    file.createNewFile()
+                if (infoFile.length() > 2 shl 20) {
+                    infoFile.delete()
+                    infoFile.createNewFile()
                 }
-                fileWriter = FileWriter(infoFile, true)
                 fileWriter.append("$tag: ")
                         .append(info)
                         .append("\n")
+                fileWriter.flush()
             } catch (e: IOException) {
-                XposedBridge.log(e)
-            } finally {
                 try {
-                    fileWriter?.close()
-                } catch (e: IOException) {}
+                    fileWriter.close()
+                } catch (ignore: Exception) {}
             }
         }
     }

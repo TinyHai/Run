@@ -19,7 +19,7 @@ class HKMethod : BaseHook() {
         }
         XposedHelpers.findAndHookMethod(methodClass, "isNative",
                 Int::class.javaPrimitiveType, MyMethodHook)
-        log(TAG, "run: 模块6工作正常")
+        log(TAG, "run: 模块5工作正常")
     }
 
     object MyMethodHook : XC_MethodHook() {

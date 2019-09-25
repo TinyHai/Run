@@ -1,14 +1,15 @@
 package com.mdzz.run
 
 import android.app.Activity
+import android.content.res.Resources
+import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import com.mdzz.run.base.BaseHook
 import com.mdzz.run.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import java.lang.reflect.Field
+import java.lang.reflect.Method
 
 class HKForHideTab : BaseHook() {
 
@@ -20,51 +21,62 @@ class HKForHideTab : BaseHook() {
         if (!XSharedPrefUtil.getBoolean(NEED_HIDE_TAB)) {
             return
         }
-        var clazz: Class<*>? = null
-        try {
-            clazz = classLoader.loadClass("com.zjwh.android_wh_physicalfitness.activity.MainActivity")
+        val clazz = try {
+            classLoader.loadClass("com.zjwh.android_wh_physicalfitness.activity.MainActivity")
         } catch (e: ClassNotFoundException) {
             log(TAG, e)
+            null
         }
         XposedHelpers.findAndHookMethod(clazz, "onResume", MyMethodHook)
-        log(TAG, "run: 模块4工作正常")
+        log(TAG, "run: 模块3工作正常")
     }
 
     private object MyMethodHook : XC_MethodHook() {
         override fun afterHookedMethod(param: MethodHookParam) {
             try {
-                var field: Field? = null
-                try {
-                    field = param.thisObject::class.java.getDeclaredField("O0000oO")
-                } catch (e: NoSuchFieldException) {
-                    param.thisObject::class.java.declaredFields.forEach {
-                        if (it.type.simpleName == "TabLayout") {
-                            field = it
-                            return@forEach
-                        }
-                    }
-                }
-                field?.let {
-                    it.isAccessible = true
-                    log(TAG, it.get(param.thisObject)::class.java.name)
-                    val tabLayout = it.get(param.thisObject)
-                    val getTabCount = tabLayout::class.java.getMethod("getTabCount")
-                    val count = getTabCount.invoke(tabLayout) as Int
-                    if (count < 5) {
-                        return
-                    }
-                    val removeTabAt = tabLayout::class.java.getMethod("removeTabAt", Int::class.javaPrimitiveType);
-                    removeTabAt.invoke(tabLayout, 2)
-                    val getParent = tabLayout::class.java.getMethod("getParent")
-                    val parentView = getParent.invoke(tabLayout) as ViewGroup
-                    val view = parentView.getChildAt(3)
-                    if (view is ImageView) {
-                        parentView.removeView(view)
-                    }
-                }
+                val activity = param.thisObject as Activity
+                val resources = activity.resources
+                hideAdImageView(resources, activity)
             } catch (th: Throwable) {
                 log(TAG, th)
             }
+        }
+
+        private fun hideAdImageView(resources: Resources, activity: Activity) {
+            val adImageId = resources.getIdentifier(AD_IMAGE_ID_NAME, "id", HOOK_PACKAGE)
+            val adImage = activity.findViewById<View>(adImageId)
+            if (adImage != null) {
+                val adImageParent = adImage.parent as ViewGroup
+                hideCenterTab(adImageParent)
+                adImageParent.removeView(adImage)
+            }
+        }
+
+        private fun hideCenterTab(parent: ViewGroup) {
+            val tabLayout = parent.getChildAt(2)
+            val tabLayoutClass = tabLayout::class.java
+            val mTabs = getMTabsField(tabLayoutClass)
+            val removeTabAt = getRemoveTabAt(tabLayoutClass)
+            val tabs = mTabs.get(tabLayout) as ArrayList<*>
+            if (tabs.size == 5) {
+                removeTabAt.invoke(tabLayout, 2)
+            }
+        }
+
+        private fun getRemoveTabAt(tabLayoutClass: Class<*>): Method {
+            val removeTabAt = tabLayoutClass.getDeclaredMethod("removeTabAt", Int::class.javaPrimitiveType)
+            if (!removeTabAt.isAccessible) {
+                removeTabAt.isAccessible = true
+            }
+            return removeTabAt
+        }
+
+        private fun getMTabsField(tabLayoutClass: Class<*>): Field {
+            val mTabs = tabLayoutClass.getDeclaredField("mTabs")
+            if (!mTabs.isAccessible) {
+                mTabs.isAccessible = true
+            }
+            return mTabs
         }
     }
 }
