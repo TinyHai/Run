@@ -49,7 +49,6 @@ class HKInstrumentation {
                 add(HKList())
                 forEach {
                     it.beginHook()
-                    BaseHook.log(TAG, it::class.java.simpleName)
                 }
             }.clear()
         }

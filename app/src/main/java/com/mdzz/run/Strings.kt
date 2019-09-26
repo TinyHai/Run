@@ -25,3 +25,5 @@ const val AD_IMAGE_ID_NAME = "ivCommerce"
 const val TABLAYOUT_CLAASS = "android.support.design.widget.TabLayout"
 
 const val TAB_CLASS = "android.support.design.widget.TabLayout\$Tab"
+
+const val MOCKAPPEVT_CLASS = "com.zjwh.android_wh_physicalfitness.entity.Eventbus.MockAppEvt"
