@@ -1,9 +1,7 @@
 package com.mdzz.run
 
-import android.content.Context
 import com.mdzz.run.base.BaseHook
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 
@@ -39,13 +37,13 @@ class HKTool : BaseHook() {
 
         private fun hookMockProcess(mockProcess: Any) {
             val mockProcessClass = mockProcess::class.java
+            log(TAG, "mockProcessClass = ${mockProcessClass.name}")
             val processMethod = try {
                 mockProcessClass.getDeclaredMethod("process", List::class.java)
             } catch (e: NoSuchMethodException) {
                 log(TAG, e)
                 null
             }
-            log(TAG, "method: ${processMethod?.name ?: "null"}")
             XposedBridge.hookMethod(processMethod, ProcessMethodHook)
         }
     }

@@ -29,3 +29,7 @@ const val TAB_CLASS = "android.support.design.widget.TabLayout\$Tab"
 const val MOCKAPPEVT_CLASS = "com.zjwh.android_wh_physicalfitness.entity.Eventbus.MockAppEvt"
 
 const val NATIVETOOL_CLASS = "com.ijm.drisk.NativeTool"
+
+const val APKINFO_CLASS = "com.ijm.drisk.mockinspect.ApkInfo"
+
+const val MOCKCONFIG_CLASS = "com.zjwh.android_wh_physicalfitness.entity.MockConfigBean"
