@@ -13,12 +13,7 @@ class HKInstrumentation {
 
     fun getClassLoaderAndStartHook(lpparam: XC_LoadPackage.LoadPackageParam) {
         try {
-            val clazz = try {
-                lpparam.classLoader.loadClass("android.app.Instrumentation")
-            } catch (th: Throwable) {
-                BaseHook.log(TAG, th)
-                null
-            }
+            val clazz = lpparam.classLoader.loadClass("android.app.Instrumentation")
             XposedHelpers.findAndHookMethod(clazz, "newApplication",
                     "java.lang.ClassLoader", "java.lang.String",
                     "android.content.Context", MyMethodHook)
@@ -46,7 +41,7 @@ class HKInstrumentation {
                 add(HKForHideTab())
                 add(HKDialog())
                 add(HKMethod())
-                add(HKList())
+                add(HKTool())
                 forEach {
                     it.beginHook()
                 }
