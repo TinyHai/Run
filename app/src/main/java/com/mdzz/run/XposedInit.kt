@@ -7,7 +7,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 class XposedInit : IXposedHookLoadPackage {
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
-        if (lpparam.packageName == "com.mdzz.hook") {
+        if (lpparam.packageName == BuildConfig.APPLICATION_ID) {
             check(lpparam.classLoader)
             return
         }

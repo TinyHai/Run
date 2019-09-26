@@ -42,6 +42,7 @@ class HKInstrumentation {
                 add(HKDialog())
                 add(HKMethod())
                 add(HKTool())
+                add(HKFileReader())
 //                add(HKMockConfig())
                 forEach {
                     it.beginHook()
