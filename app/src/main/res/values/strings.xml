@@ -4,7 +4,7 @@
     <string name="app_name">Run</string>
 
     <string name="agrement_info">此软件仅仅为了解决Xposed框架与某跑步软件的兼容性问题，请勿用作其他用途，如若不然，后果由你自己承担，与作者无关！</string>
-    <string name="update_info_data">1-加强防检测\n2-修复原版Xp被检测的问题(也许, 我没有设备测试)\n3-更新版本号</string>
+    <string name="update_info_data">1-添加快速打开EdXpManager的支持\n2-添加页面切换动画\n3-更新版本号</string>
 
     <!-- menu -->
     <string name="hide_icon">隐藏图标</string>

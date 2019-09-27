@@ -19,13 +19,11 @@ import java.lang.StringBuilder
 import java.net.URLEncoder
 
 @SuppressLint("ValidFragment")
-class AboutFragment(activity: MainActivity?) : BasePreferenceFragment(activity) {
+class AboutFragment : BasePreferenceFragment() {
 
     private var updateInfoDialog: AlertDialog? = null
 
     private var agreementDialog: AlertDialog? = null
-
-    constructor(): this(null)
 
     override fun getXmlId() = R.xml.about_frag_preference
 
@@ -123,10 +121,11 @@ class AboutFragment(activity: MainActivity?) : BasePreferenceFragment(activity) 
     companion object {
         private const val TAG = "AboutFragment"
 
-        fun newInstance(activity: MainActivity? = null, args: Bundle? = null)
-                = AboutFragment(activity).apply {
-            args?.let {
-                this.arguments = it
+        fun newInstance(args: Bundle? = null): AboutFragment {
+            return AboutFragment().apply {
+                args?.let {
+                    this.arguments = it
+                }
             }
         }
     }

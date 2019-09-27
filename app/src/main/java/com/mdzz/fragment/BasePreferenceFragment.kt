@@ -1,17 +1,27 @@
 package com.mdzz.fragment
 
+import android.animation.Animator
+import android.animation.AnimatorInflater
+import android.app.FragmentTransaction
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.preference.PreferenceScreen
+import android.transition.Transition
+import android.view.animation.AnimationUtils
 import com.mdzz.activity.MainActivity
 import java.lang.ref.WeakReference
 
-abstract class BasePreferenceFragment(activity: MainActivity?) : PreferenceFragment() {
+abstract class BasePreferenceFragment : PreferenceFragment() {
 
-    private val mActivity = WeakReference(activity)
+    private lateinit var mActivity: WeakReference<MainActivity>
 
-    constructor(): this(null)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (activity is MainActivity) {
+            mActivity = WeakReference(activity as MainActivity)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +36,30 @@ abstract class BasePreferenceFragment(activity: MainActivity?) : PreferenceFragm
             }
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference)
+    }
+
+
+
+    override fun onCreateAnimator(transit: Int, enter: Boolean, nextAnim: Int): Animator? {
+        return when (transit) {
+            FragmentTransaction.TRANSIT_FRAGMENT_OPEN -> {
+                if (enter) {
+                    AnimatorInflater.loadAnimator(activity, android.R.animator.fade_in)
+                } else {
+                    AnimatorInflater.loadAnimator(activity, android.R.animator.fade_out)
+                }
+            }
+            FragmentTransaction.TRANSIT_FRAGMENT_CLOSE -> {
+                if (enter) {
+                    AnimatorInflater.loadAnimator(activity, android.R.animator.fade_in)
+                } else {
+                    AnimatorInflater.loadAnimator(activity, android.R.animator.fade_out)
+                }
+            }
+            else -> {
+                super.onCreateAnimator(transit, enter, nextAnim)
+            }
+        }
     }
 
     abstract fun getXmlId(): Int

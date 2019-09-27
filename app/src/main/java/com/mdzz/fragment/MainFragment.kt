@@ -1,23 +1,18 @@
 package com.mdzz.fragment
 
-import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceScreen
-import android.text.TextUtils
 import com.mdzz.activity.MainActivity
 import com.mdzz.run.R
 import com.mdzz.toast.ToastUtil
 import com.mdzz.util.PackageUtil
 
-@SuppressLint("ValidFragment")
-class MainFragment(activity: MainActivity?) : BasePreferenceFragment(activity) {
+class MainFragment : BasePreferenceFragment() {
 
     private var isActive: Boolean = false
-
-    constructor(): this(null)
 
     override fun getXmlId() = R.xml.main_frag_preference
 
@@ -47,7 +42,8 @@ class MainFragment(activity: MainActivity?) : BasePreferenceFragment(activity) {
 
     private fun openXposedInstaller() {
 
-        val xpManagerPackageNames = arrayOf("com.solohsu.android.edxp.manager", "de.robv.android.xposed.installer")
+        val xpManagerPackageNames = arrayOf("com.solohsu.android.edxp.manager",
+                "de.robv.android.xposed.installer", "org.meowcat.edxposed.manager")
 
         var installedPackageName = ""
 
@@ -59,14 +55,13 @@ class MainFragment(activity: MainActivity?) : BasePreferenceFragment(activity) {
         }
 
         if (installedPackageName != "") {
-            val intent = Intent()
-            intent.let {
-                it.component = ComponentName(installedPackageName,
+            val intent = Intent().apply {
+                component = ComponentName(installedPackageName,
                         "de.robv.android.xposed.installer.WelcomeActivity")
-                it.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         .putExtra("fragment", 1)
-                startActivity(it)
             }
+            startActivity(intent)
         } else {
             ToastUtil.makeToast(activity, "请先安装XposedInstaller后重试")
         }
@@ -77,8 +72,8 @@ class MainFragment(activity: MainActivity?) : BasePreferenceFragment(activity) {
 
         const val IS_ACTIVE = "is_active"
 
-        fun newInstance(activity: MainActivity? = null, args: Bundle? = null)
-                = MainFragment(activity).apply {
+        fun newInstance(args: Bundle? = null)
+                = MainFragment().apply {
             args?.let {
                 this.arguments = it
             }

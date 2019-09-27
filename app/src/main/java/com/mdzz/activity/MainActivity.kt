@@ -45,16 +45,15 @@ class MainActivity : AppCompatActivity() {
             MAIN_FRAGMENT -> {
                 val bundle = Bundle()
                 bundle.putBoolean(MainFragment.IS_ACTIVE, isActive())
-                MainFragment.newInstance(this, bundle)
+                MainFragment.newInstance(bundle)
             }
-            ABOUT_FRAGMENT -> AboutFragment.newInstance(this)
+            ABOUT_FRAGMENT -> AboutFragment.newInstance()
             else -> null
         }
         if (fragment != null) {
             val fm = fragmentManager.beginTransaction()
                     .replace(R.id.pref_fragment, fragment)
-                    .setCustomAnimations(FragmentTransaction.TRANSIT_FRAGMENT_FADE,
-                            FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             if (flag == ABOUT_FRAGMENT) {
                 fm.addToBackStack(null)
             }
