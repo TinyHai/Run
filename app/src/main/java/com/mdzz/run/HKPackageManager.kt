@@ -10,7 +10,6 @@ import com.mdzz.run.filter.PackageInfoFilter
 import com.mdzz.run.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
-import java.util.LinkedHashSet
 
 @Suppress("UNCHECKED_CAST")
 class HKPackageManager : BaseHook() {

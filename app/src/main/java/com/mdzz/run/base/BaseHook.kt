@@ -1,7 +1,7 @@
 package com.mdzz.run.base
 
 import com.mdzz.run.LOG_SWICH
-import com.mdzz.run.util.FileUtil.saveInfo
+import com.mdzz.run.util.LogUtil.saveInfo
 import com.mdzz.run.util.XSharedPrefUtil
 
 abstract class BaseHook {
