@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceScreen
-import com.mdzz.activity.MainActivity
+import com.mdzz.activity.MainActivity.Companion.XPTAG
+import com.mdzz.run.EDXPOSED_TAG
 import com.mdzz.run.R
+import com.mdzz.run.XPOSED_TAG
 import com.mdzz.toast.ToastUtil
 import com.mdzz.util.PackageUtil
 
@@ -26,7 +28,21 @@ class MainFragment : BasePreferenceFragment() {
 
     private fun initPreference() {
         findPreference("status").apply {
-            summary = if (isActive) getString(R.string.is_active) else getString(R.string.no_active)
+            summary = if (isActive) {
+                when (XPTAG) {
+                    XPOSED_TAG -> {
+                        getString(R.string.is_active, "Xposed")
+                    }
+                    EDXPOSED_TAG -> {
+                        getString(R.string.is_active, "EdXposed")
+                    }
+                    else -> {
+                        getString(R.string.is_active, "未知环境")
+                    }
+                }
+            } else {
+                getString(R.string.no_active)
+            }
         }
     }
 

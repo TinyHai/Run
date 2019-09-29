@@ -57,45 +57,43 @@ class HKPackageManager : BaseHook() {
         private val protectedPackageNames
                 get() = XSharedPrefUtil.getStringSet(NEED_PROTECT_PACKAGE, delimiter = "\n")
 
-        override fun beforeHookedMethod(param: MethodHookParam?) {
-            param?.let {
-                val packageName = it.args[0] as String
-                if (packageName.startsWith("android.") || packageName.contains(HOOK_PACKAGE)) {
-                    return
-                }
-                if (needProtected(packageName)) {
-                    it.throwable = PackageManager.NameNotFoundException(packageName)
-                    return
-                }
-            }
-        }
-
         override fun afterHookedMethod(param: MethodHookParam?) {
             param?.let {
-                val packageName = it.args[0] as String
-                var shouldThrow = false
-                if (hasResult(it)) {
-                    when (it.result::class.java.simpleName) {
-                        "ApplicationInfo" -> {
-                            val applicationInfo = param.result as ApplicationInfo
-                            if (Filter.isSystemApp(applicationInfo.flags)) {
-                                return
-                            } else {
-                                shouldThrow = true
+                try {
+                    val packageName = it.args[0] as String
+                    if (packageName.startsWith("android.") || packageName.contains(HOOK_PACKAGE)) {
+                        return
+                    }
+                    if (needProtected(packageName)) {
+                        it.throwable = PackageManager.NameNotFoundException(packageName)
+                        return
+                    }
+                    var shouldThrow = false
+                    if (hasResult(it)) {
+                        when (it.result::class.java.simpleName) {
+                            "ApplicationInfo" -> {
+                                val applicationInfo = param.result as ApplicationInfo
+                                if (Filter.isSystemApp(applicationInfo.flags)) {
+                                    return
+                                } else {
+                                    shouldThrow = true
+                                }
                             }
-                        }
-                        "PackageInfo" -> {
-                            val packageInfo = it.result as PackageInfo
-                            if (Filter.isSystemApp(packageInfo.applicationInfo.flags)) {
-                                return
-                            } else {
-                                shouldThrow = true
+                            "PackageInfo" -> {
+                                val packageInfo = it.result as PackageInfo
+                                if (Filter.isSystemApp(packageInfo.applicationInfo.flags)) {
+                                    return
+                                } else {
+                                    shouldThrow = true
+                                }
                             }
                         }
                     }
-                }
-                if (shouldThrow) {
-                    it.throwable = PackageManager.NameNotFoundException(packageName)
+                    if (shouldThrow) {
+                        it.throwable = PackageManager.NameNotFoundException(packageName)
+                    }
+                } catch (th: Throwable) {
+                    log(TAG, th)
                 }
             }
         }

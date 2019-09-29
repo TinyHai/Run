@@ -39,3 +39,9 @@ const val PACKAGEMANAGER_CLASS = "android.app.ApplicationPackageManager"
 const val DIALOG_CLASS = "android.app.Dialog"
 
 const val MODIFIER_CLASS = "java.lang.reflect.Modifier"
+
+const val APPLICATION_THREAD_CLASS = "android.app.ActivityThread\$ApplicationThread"
+
+const val XPOSED_TAG = "Xposed"
+
+const val EDXPOSED_TAG = "EdXposed-Bridge"

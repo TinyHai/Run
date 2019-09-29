@@ -133,5 +133,8 @@ class MainActivity : AppCompatActivity() {
         const val MAIN_FRAGMENT = 1 shl 3
 
         const val ABOUT_FRAGMENT = 1 shl 4
+
+        @JvmStatic
+        val XPTAG: String = ""
     }
 }

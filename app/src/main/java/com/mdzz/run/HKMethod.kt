@@ -3,8 +3,8 @@ package com.mdzz.run
 import com.mdzz.run.base.BaseHook
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
-class HKMethod : BaseHook() {
 
+class HKMethod : BaseHook() {
     companion object {
         private const val TAG = "HKMethod"
     }
