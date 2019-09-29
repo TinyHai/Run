@@ -1,5 +1,6 @@
 package com.mdzz.run
 
+import android.annotation.SuppressLint
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -18,26 +19,23 @@ class HKPackageManager : BaseHook() {
         private const val TAG = "HKPackageManager"
     }
 
+    @SuppressLint("PrivateApi")
     override fun beginHook() {
-        val appPackageManagerClass = try {
-            XposedHelpers.findClass("android.app.ApplicationPackageManager",
-                    classLoader)
-        } catch (th: Throwable) {
-            log(TAG, th)
-            null
-        }
-        appPackageManagerClass?.let {
-            XposedHelpers.findAndHookMethod(it, "getPackageInfo",
+        try {
+            val appPackageManagerClass = classLoader.loadClass(PACKAGEMANAGER_CLASS)
+            XposedHelpers.findAndHookMethod(appPackageManagerClass, "getPackageInfo",
                     String::class.java, Int::class.javaPrimitiveType, MyMethodHook)
-            XposedHelpers.findAndHookMethod(it, "getApplicationInfo",
+            XposedHelpers.findAndHookMethod(appPackageManagerClass, "getApplicationInfo",
                     String::class.java, Int::class.javaPrimitiveType, MyMethodHook)
-            XposedHelpers.findAndHookMethod(it, "getInstalledApplications",
+            XposedHelpers.findAndHookMethod(appPackageManagerClass, "getInstalledApplications",
                     Int::class.javaPrimitiveType, MyIAppMethodHook)
-            XposedHelpers.findAndHookMethod(it, "getInstalledPackages",
+            XposedHelpers.findAndHookMethod(appPackageManagerClass, "getInstalledPackages",
                     Int::class.javaPrimitiveType, MyIPkgMethodHook)
+            log(TAG, "run: 模块2工作正常")
+        } catch (th: Throwable) {
+            log(TAG, "run: 模块2出错")
+            log(TAG, th)
         }
-
-        log(TAG, "run: 模块2工作正常")
     }
 
     object MyIAppMethodHook : XC_MethodHook() {

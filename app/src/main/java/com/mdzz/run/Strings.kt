@@ -33,3 +33,9 @@ const val NATIVETOOL_CLASS = "com.ijm.drisk.NativeTool"
 const val APKINFO_CLASS = "com.ijm.drisk.mockinspect.ApkInfo"
 
 const val MOCKCONFIG_CLASS = "com.zjwh.android_wh_physicalfitness.entity.MockConfigBean"
+
+const val PACKAGEMANAGER_CLASS = "android.app.ApplicationPackageManager"
+
+const val DIALOG_CLASS = "android.app.Dialog"
+
+const val MODIFIER_CLASS = "java.lang.reflect.Modifier"

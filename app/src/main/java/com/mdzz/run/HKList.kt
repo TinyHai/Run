@@ -10,14 +10,17 @@ class HKList : BaseHook() {
     }
 
     override fun beginHook() {
-        log(TAG, "run: 模块6工作正常")
-        val mockAppEvtClass = try {
-            classLoader.loadClass(MOCKAPPEVT_CLASS)
+        try {
+            val mockAppEvtClass = classLoader.loadClass(MOCKAPPEVT_CLASS)
+            XposedHelpers.findAndHookConstructor(mockAppEvtClass, List::class.java, MyMethodHook)
+            log(TAG, "run: 模块6工作正常")
         } catch (e: ClassNotFoundException) {
+            log(TAG, "run: 模块6出错")
             log(TAG, e)
-            null
+        } catch (th: Throwable) {
+            log(TAG, "run: 模块6出错")
+            log(TAG, th)
         }
-        XposedHelpers.findAndHookConstructor(mockAppEvtClass, List::class.java, MyMethodHook)
     }
 
     object MyMethodHook : XC_MethodHook() {

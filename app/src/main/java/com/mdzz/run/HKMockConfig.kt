@@ -12,14 +12,17 @@ class HKMockConfig : BaseHook() {
     }
 
     override fun beginHook() {
-        val mockConfigClass = try {
-            classLoader.loadClass(MOCKCONFIG_CLASS)
+        try {
+            val mockConfigClass = classLoader.loadClass(MOCKCONFIG_CLASS)
+            XposedHelpers.findAndHookMethod(mockConfigClass, "getMockList", MyMethodHook)
+            log(TAG, "run: 模块8工作正常")
         } catch (e: ClassNotFoundException) {
+            log(TAG, "run: 模块8出错")
             log(TAG, e)
-            null
+        } catch (th: Throwable) {
+            log(TAG, "run: 模块8出错")
+            log(TAG, th)
         }
-        XposedHelpers.findAndHookMethod(mockConfigClass, "getMockList", MyMethodHook)
-        log(TAG, "run: 模块8工作正常")
     }
 
     object MyMethodHook : XC_MethodHook() {

@@ -1,6 +1,7 @@
 package com.mdzz.run
 
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.res.Resources
 import android.view.View
 import android.view.ViewGroup
@@ -21,14 +22,15 @@ class HKForHideTab : BaseHook() {
         if (!XSharedPrefUtil.getBoolean(NEED_HIDE_TAB)) {
             return
         }
-        val clazz = try {
-            classLoader.loadClass("com.zjwh.android_wh_physicalfitness.activity.MainActivity")
+        try {
+            val mainActivityClass =
+                    classLoader.loadClass("com.zjwh.android_wh_physicalfitness.activity.MainActivity")
+            XposedHelpers.findAndHookMethod(mainActivityClass, "onResume", MyMethodHook)
+            log(TAG, "run: 模块3工作正常")
         } catch (e: ClassNotFoundException) {
+            log(TAG, "run: 模块3出错")
             log(TAG, e)
-            null
         }
-        XposedHelpers.findAndHookMethod(clazz, "onResume", MyMethodHook)
-        log(TAG, "run: 模块3工作正常")
     }
 
     private object MyMethodHook : XC_MethodHook() {

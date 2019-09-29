@@ -11,16 +11,19 @@ class HKTool : BaseHook() {
     }
 
     override fun beginHook() {
-        val nativeToolClass = try {
-            classLoader.loadClass(NATIVETOOL_CLASS)
+        try {
+            val nativeToolClass = classLoader.loadClass(NATIVETOOL_CLASS)
+            XposedHelpers.findAndHookMethod(nativeToolClass, "startCheckMockLocation",
+                    "android.content.Context", "com.ijm.drisk.mockinspect.MockProcess",
+                    Int::class.javaPrimitiveType, MyMethodHook)
+            log(TAG, "run: 模块6工作正常")
         } catch (e: ClassNotFoundException) {
+            log(TAG, "run: 模块6出错")
             log(TAG, e)
-            null
+        } catch (th: Throwable) {
+            log(TAG, "run: 模块6出错")
+            log(TAG, th)
         }
-        XposedHelpers.findAndHookMethod(nativeToolClass, "startCheckMockLocation",
-                "android.content.Context", "com.ijm.drisk.mockinspect.MockProcess",
-                Int::class.javaPrimitiveType, MyMethodHook)
-        log(TAG, "run: 模块6工作正常")
     }
 
     object MyMethodHook : XC_MethodHook() {

@@ -1,14 +1,11 @@
 package com.mdzz.run
 
-import android.app.Dialog
 import android.view.ViewGroup
 import android.widget.TextView
 import com.mdzz.run.base.BaseHook
 import com.mdzz.run.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
-import java.lang.NullPointerException
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -22,21 +19,23 @@ class HKDialog : BaseHook() {
         if (!XSharedPrefUtil.getBoolean(MAKE_DIALOG_CANCELABLE)) {
             return
         }
-        XposedHelpers.findAndHookMethod("android.app.Dialog",
-                classLoader, "setCancelable",
-                Boolean::class.javaPrimitiveType, MySetTrueMethodHook)
-        XposedHelpers.findAndHookMethod("android.app.Dialog", classLoader,
-                "setCanceledOnTouchOutside", Boolean::class.javaPrimitiveType,
-                MySetTrueMethodHook)
-        XposedHelpers.findAndHookMethod("android.app.Dialog", classLoader,
-                "setOnCancelListener",
-                "android.content.DialogInterface\$OnCancelListener",
-                MyCancelListenerMethodHook)
-        if (XSharedPrefUtil.getBoolean(PREVENT_DIALOG)) {
-            XposedHelpers.findAndHookMethod("android.app.Dialog", classLoader,
-                    "show", MyShowMethodHook)
+        try {
+            val dialogClass = classLoader.loadClass(DIALOG_CLASS)
+            XposedHelpers.findAndHookMethod(dialogClass, "setCancelable",
+                    Boolean::class.javaPrimitiveType, MySetTrueMethodHook)
+            XposedHelpers.findAndHookMethod(dialogClass, "setCanceledOnTouchOutside",
+                    Boolean::class.javaPrimitiveType, MySetTrueMethodHook)
+            XposedHelpers.findAndHookMethod(dialogClass, "setOnCancelListener",
+                    "android.content.DialogInterface\$OnCancelListener",
+                    MyCancelListenerMethodHook)
+            if (XSharedPrefUtil.getBoolean(PREVENT_DIALOG)) {
+                XposedHelpers.findAndHookMethod(dialogClass, "show", MyShowMethodHook)
+            }
+            log(TAG, "run: 模块4工作正常")
+        } catch (th: Throwable) {
+            log(TAG, "run: 模块4出错")
+            log(TAG, th)
         }
-        log(TAG, "run: 模块4工作正常")
     }
 
     private object MySetTrueMethodHook : XC_MethodHook() {
