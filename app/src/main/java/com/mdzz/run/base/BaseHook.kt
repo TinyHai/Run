@@ -9,6 +9,9 @@ abstract class BaseHook {
     abstract fun beginHook()
 
     companion object {
+
+        private const val TAG = "BaseHook"
+
         private val mOpenLog: Boolean
             get() = XSharedPrefUtil.getBoolean(LOG_SWICH)
 

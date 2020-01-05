@@ -7,8 +7,6 @@ import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceFragment
 import android.preference.PreferenceScreen
-import android.transition.Transition
-import android.view.animation.AnimationUtils
 import com.mdzz.activity.MainActivity
 import java.lang.ref.WeakReference
 

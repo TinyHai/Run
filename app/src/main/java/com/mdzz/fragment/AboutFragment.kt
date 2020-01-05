@@ -8,7 +8,6 @@ import android.preference.Preference
 import android.preference.PreferenceScreen
 import android.support.v7.app.AlertDialog
 import android.widget.Toast
-import com.mdzz.activity.MainActivity
 import com.mdzz.run.BuildConfig
 import com.mdzz.run.R
 import com.mdzz.toast.ToastUtil
@@ -36,7 +35,7 @@ class AboutFragment : BasePreferenceFragment() {
         findPreference("about_version").apply {
             title = getString(R.string.version, BuildConfig.VERSION_NAME)
             onPreferenceClickListener = Preference.OnPreferenceClickListener{ _ ->
-                ToastUtil.makeToast(activity, title)
+                ToastUtil.makeToast(title)
                 true
             }
         }
@@ -51,7 +50,7 @@ class AboutFragment : BasePreferenceFragment() {
             "feedback" -> {
                 ClipBoardUtil.setClipBoardContent(activity,
                         ClipData.newPlainText("QQ", "2071769694"))
-                ToastUtil.makeToast(activity, "QQ号已复制到剪贴板")
+                ToastUtil.makeToast("QQ号已复制到剪贴板")
                 return true
             }
             "clouddisk" -> {
@@ -62,14 +61,14 @@ class AboutFragment : BasePreferenceFragment() {
                 if (hasInstalledIt(activity, "com.eg.android.AlipayGphone")) {
                     UriUtil.openUri(activity, getAliPayUri())
                 } else {
-                    ToastUtil.makeToast(activity, "请先安装支付宝后重试")
+                    ToastUtil.makeToast("请先安装支付宝后重试")
                 }
                 return true
             }
             "pay_code" -> {
                 ClipBoardUtil.setClipBoardContent(activity,
                         ClipData.newPlainText("payCode", "559532805"))
-                ToastUtil.makeToast(activity, "推广码已复制到剪贴板，请到支付宝应用首页搜索即可领取红包",
+                ToastUtil.makeToast("推广码已复制到剪贴板，请到支付宝应用首页搜索即可领取红包",
                         Toast.LENGTH_LONG)
                 return true
             }

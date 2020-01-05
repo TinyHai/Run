@@ -1,23 +1,20 @@
 package com.mdzz.toast
 
-import android.content.Context
 import android.widget.Toast
+import com.mdzz.MyApplication
 
-class ToastUtil {
+object ToastUtil {
 
-    companion object {
+    private var toast: Toast? = null
 
-        private var toast: Toast? = null
-
-        fun makeToast(context: Context, msg: CharSequence, time: Int = Toast.LENGTH_SHORT) {
-            if (toast == null) {
-                toast = Toast.makeText(context, msg, time)
-                toast?.show()
-            } else {
-                toast?.let {
-                    it.setText(msg)
-                    it.show()
-                }
+    fun makeToast(msg: CharSequence, time: Int = Toast.LENGTH_SHORT) {
+        if (toast == null) {
+            toast = Toast.makeText(MyApplication.application, msg, time)
+            toast?.show()
+        } else {
+            toast?.let {
+                it.setText(msg)
+                it.show()
             }
         }
     }

@@ -79,7 +79,7 @@ class MainFragment : BasePreferenceFragment() {
             }
             startActivity(intent)
         } else {
-            ToastUtil.makeToast(activity, "请先安装XposedInstaller后重试")
+            ToastUtil.makeToast("请先安装XposedInstaller后重试")
         }
     }
 
