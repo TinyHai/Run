@@ -45,6 +45,7 @@ class HKInstrumentation {
                 add(HKFileReader())
                 add(HKAppVersion())
                 add(HKSPEditor())
+                add(HKLBClass())
                 forEach {
                     it.beginHook()
                 }

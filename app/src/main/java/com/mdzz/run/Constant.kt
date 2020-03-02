@@ -52,6 +52,8 @@ const val IJIAMI_ENCRYPTIONMODE_CLASS = "com.ijiami.EncryptionMode"
 
 const val IJIAMI_JMEBBU_CLASS = "com.ijiami.JMEncryptBoxByUnidirectional"
 
+const val LB_CLASS = "lb"
+
 const val XPOSED_TAG = "Xposed"
 
 const val EDXPOSED_TAG = "EdXposed-Bridge"
