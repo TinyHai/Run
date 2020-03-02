@@ -1,7 +1,6 @@
 package com.mdzz.run
 
 import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.res.Resources
 import android.view.View
 import android.view.ViewGroup

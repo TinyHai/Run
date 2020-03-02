@@ -1,13 +1,8 @@
 package com.mdzz.run.proxy
 
 import android.content.SharedPreferences
-import android.util.JsonReader
-import android.util.JsonWriter
 import com.mdzz.run.base.BaseHook
 import org.json.JSONObject
-import java.io.StringReader
-import java.io.StringWriter
-import kotlin.math.log
 
 class EditorProxy(private val editor: SharedPreferences.Editor) : SharedPreferences.Editor by editor{
 

@@ -53,15 +53,15 @@ class HKTool : BaseHook() {
 
     object ProcessMethodHook : XC_MethodHook() {
         override fun beforeHookedMethod(param: MethodHookParam?) {
-            param?.let {
+            param?.let { p ->
                 try {
-                    val list = it.args[0] as List<*>
+                    val list = p.args[0] as List<*>
                     log(TAG, "begin")
                     list.forEach {
                         log(TAG, it.toString())
                     }
                     log(TAG, "end")
-                    it.result = null
+                    p.result = null
                 } catch (th: Throwable) {
                     log(TAG, th)
                 }

@@ -17,7 +17,7 @@ class HKSPEditor : BaseHook() {
     override fun beginHook() {
         try {
             val sharedPrefClass = XposedHelpers.findClass(SHARED_PREF_CLASS, classLoader)
-            XposedHelpers.findAndHookMethod(SHARED_PREF_CLASS, classLoader, "edit", EditMethodHook)
+            XposedHelpers.findAndHookMethod(sharedPrefClass, "edit", EditMethodHook)
             log(TAG, "run: 模块9工作正常")
         } catch (th: Throwable) {
             log(TAG, "run: 模块9出错")
