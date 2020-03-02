@@ -70,12 +70,20 @@ class MainFragment : BasePreferenceFragment() {
             }
         }
 
-        if (installedPackageName != "") {
+        if (installedPackageName != "" && installedPackageName != "org.meowcat.edxposed.manager") {
             val intent = Intent().apply {
                 component = ComponentName(installedPackageName,
                         "de.robv.android.xposed.installer.WelcomeActivity")
-                setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .putExtra("fragment", 1)
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                putExtra("fragment", 1)
+            }
+            startActivity(intent)
+        } else if (installedPackageName == "org.meowcat.edxposed.manager") {
+            val intent = Intent().apply {
+                component = ComponentName(installedPackageName,
+                        "org.meowcat.edxposed.manager.WelcomeActivityMlgmXyysd")
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                putExtra("fragment", 1)
             }
             startActivity(intent)
         } else {
