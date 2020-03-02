@@ -1,17 +1,23 @@
 package com.mdzz.run
 
-import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XposedBridge
+import com.mdzz.run.base.BaseHook
+import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.XposedHelpers
 
-class HKThrowable {
-    fun handleLoadPackage() {
-        XposedHelpers.findAndHookMethod(Throwable::class.java, "getStackTrace",
-                object : XC_MethodHook() {
-                    override fun afterHookedMethod(param: MethodHookParam) {
-                        param.result = emptyArray<StackTraceElement>()
-                    }
-                })
-        XposedBridge.log("run: 模块1工作正常")
+class HKThrowable : BaseHook() {
+
+    companion object {
+        private const val TAG = "HKThrowable"
+    }
+
+    override fun beginHook() {
+        try {
+            XposedHelpers.findAndHookMethod("java.lang.Throwable", classLoader, "getStackTrace",
+                    XC_MethodReplacement.returnConstant(emptyArray<StackTraceElement>()))
+            log(TAG, "run: 模块1工作正常")
+        } catch (th: Throwable) {
+            log(TAG, "run: 模块1出错")
+            log(TAG, th)
+        }
     }
 }

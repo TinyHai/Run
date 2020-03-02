@@ -21,20 +21,22 @@
 #-renamesourcefileattribute SourceFile
 # 修改包名
 
--repackageclass ""
+#-repackageclass ""
 
 # 忽略访问修饰符，配合上一句使用
 
--allowaccessmodification
+#-allowaccessmodification
 
 # 不要删除源文件名和行号
 
--keepattributes SourceFile,LineNumberTable
+#-keepattributes SourceFile,LineNumberTable
 
--keepclasseswithmembers public class com.mdzz.run.XposedInit {
-    public void handleLoadPackage(***);
-}
+-keep public class com.mdzz.run.XposedInit
 
 -keepclasseswithmembers class com.mdzz.activity.MainActivity {
     private boolean isActive();
+}
+
+-keepclassmembers class com.mdzz.activity.MainActivity {
+    private static final java.lang.String XPTAG;
 }

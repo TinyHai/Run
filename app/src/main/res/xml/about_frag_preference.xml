@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/title_about_run">
+        <Preference
+            android:title="@string/agreement"
+            android:key="argument"
+            android:icon="@drawable/ic_agreement" />
+        <Preference
+            android:title="@string/feedback"
+            android:key="feedback"
+            android:icon="@drawable/ic_feedback"/>
+        <Preference
+            android:title="@string/clouddisk"
+            android:key="clouddisk"
+            android:icon="@drawable/ic_clouddisk"/>
+        <Preference
+            android:title="@string/pay"
+            android:icon="@drawable/ic_pay"
+            android:key="pay"/>
+        <Preference
+            android:title="@string/pay_code"
+            android:icon="@drawable/ic_pay_code"
+            android:key="pay_code"/>
+        <Preference
+            android:title="@string/update_info"
+            android:icon="@drawable/ic_update_info"
+            android:key="update_info"/>
+        <Preference
+            android:title="@string/run_github"
+            android:icon="@drawable/ic_github"
+            android:key="run_github"/>
+        <Preference
+            android:title="@string/version"
+            android:icon="@drawable/ic_about"
+            android:key="about_version"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/title_thank">
+        <Preference
+            android:key="thank_QQPurify"
+            android:title="@string/thank_qqpurify"
+            android:summary="@string/summary_thank_qqpurify"/>
+        <Preference
+            android:title="@string/thank_all_support"
+            android:summary="@string/summary_thank_all_support"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>
