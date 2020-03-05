@@ -1,4 +1,4 @@
-package com.mdzz.run
+package com.mdzz.hook
 
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.callbacks.XC_LoadPackage

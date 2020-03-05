@@ -1,8 +1,8 @@
-package com.mdzz.run.filter
+package com.mdzz.hook.filter
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
-import com.mdzz.run.HOOK_PACKAGE
+import com.mdzz.hook.HOOK_PACKAGE
 
 
 sealed class Filter<T> {

@@ -1,7 +1,8 @@
-package com.mdzz.run
+package com.mdzz.hook
 
-import com.mdzz.run.base.BaseHook
-import com.mdzz.run.util.XSharedPrefUtil
+import com.mdzz.BuildConfig
+import com.mdzz.hook.base.BaseHook
+import com.mdzz.hook.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
@@ -20,7 +21,7 @@ class XposedMain : IHookerDispatcher {
             return
         }
         if (lpparam.packageName == HOOK_PACKAGE) {
-            XposedBridge.log("Run 已加载")
+            XposedBridge.log("Run 已重新加载")
             if (XSharedPrefUtil.getBoolean(HOOK_START)) {
                 HKInstrumentation().getClassLoaderAndStartHook(lpparam)
             }

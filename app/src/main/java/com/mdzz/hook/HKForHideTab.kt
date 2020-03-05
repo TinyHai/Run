@@ -1,11 +1,11 @@
-package com.mdzz.run
+package com.mdzz.hook
 
 import android.app.Activity
 import android.content.res.Resources
 import android.view.View
 import android.view.ViewGroup
-import com.mdzz.run.base.BaseHook
-import com.mdzz.run.util.XSharedPrefUtil
+import com.mdzz.hook.base.BaseHook
+import com.mdzz.hook.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import java.lang.reflect.Field

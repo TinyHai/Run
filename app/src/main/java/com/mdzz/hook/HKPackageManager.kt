@@ -1,14 +1,14 @@
-package com.mdzz.run
+package com.mdzz.hook
 
 import android.annotation.SuppressLint
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import com.mdzz.run.base.BaseHook
-import com.mdzz.run.filter.ApplicationInfoFilter
-import com.mdzz.run.filter.Filter
-import com.mdzz.run.filter.PackageInfoFilter
-import com.mdzz.run.util.XSharedPrefUtil
+import com.mdzz.hook.base.BaseHook
+import com.mdzz.hook.filter.ApplicationInfoFilter
+import com.mdzz.hook.filter.Filter
+import com.mdzz.hook.filter.PackageInfoFilter
+import com.mdzz.hook.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 

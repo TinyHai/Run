@@ -1,4 +1,4 @@
-package com.mdzz.run.util
+package com.mdzz.hook.util
 
 import android.util.Log
 import de.robv.android.xposed.XposedBridge

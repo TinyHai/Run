@@ -1,8 +1,8 @@
-package com.mdzz.run.base
+package com.mdzz.hook.base
 
-import com.mdzz.run.LOG_SWICH
-import com.mdzz.run.util.LogUtil.saveInfo
-import com.mdzz.run.util.XSharedPrefUtil
+import com.mdzz.hook.LOG_SWICH
+import com.mdzz.hook.util.LogUtil.saveInfo
+import com.mdzz.hook.util.XSharedPrefUtil
 
 abstract class BaseHook {
 

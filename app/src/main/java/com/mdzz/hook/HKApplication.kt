@@ -1,6 +1,6 @@
-package com.mdzz.run
+package com.mdzz.hook
 
-import com.mdzz.run.base.BaseHook
+import com.mdzz.hook.base.BaseHook
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 

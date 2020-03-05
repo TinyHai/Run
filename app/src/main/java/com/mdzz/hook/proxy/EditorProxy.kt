@@ -1,7 +1,7 @@
-package com.mdzz.run.proxy
+package com.mdzz.hook.proxy
 
 import android.content.SharedPreferences
-import com.mdzz.run.base.BaseHook
+import com.mdzz.hook.base.BaseHook
 import org.json.JSONObject
 
 class EditorProxy(private val editor: SharedPreferences.Editor) : SharedPreferences.Editor by editor{

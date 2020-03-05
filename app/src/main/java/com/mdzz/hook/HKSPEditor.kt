@@ -1,9 +1,9 @@
-package com.mdzz.run
+package com.mdzz.hook
 
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
-import com.mdzz.run.base.BaseHook
-import com.mdzz.run.proxy.EditorProxy
+import com.mdzz.hook.base.BaseHook
+import com.mdzz.hook.proxy.EditorProxy
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 
