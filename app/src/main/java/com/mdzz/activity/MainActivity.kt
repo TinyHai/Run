@@ -12,6 +12,7 @@ import android.view.MenuItem
 import com.mdzz.fragment.AboutFragment
 import com.mdzz.fragment.MainFragment
 import com.mdzz.run.R
+import com.mdzz.run.util.LogUtil
 import com.mdzz.util.FileUtil
 
 class MainActivity : AppCompatActivity() {
@@ -128,6 +129,6 @@ class MainActivity : AppCompatActivity() {
         const val ABOUT_FRAGMENT = 1 shl 4
 
         @JvmStatic
-        val XPTAG: String = ""
+        val XPTAG: String = LogUtil.XPTAG
     }
 }
