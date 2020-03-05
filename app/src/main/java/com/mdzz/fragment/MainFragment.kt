@@ -37,7 +37,7 @@ class MainFragment : BasePreferenceFragment() {
                         getString(R.string.is_active, "EdXposed")
                     }
                     else -> {
-                        getString(R.string.is_active, "未知环境")
+                        getString(R.string.is_active, XPTAG)
                     }
                 }
             } else {
