@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.preference.Preference
 import android.preference.PreferenceScreen
 import com.mdzz.activity.MainActivity.Companion.XPTAG
-import com.mdzz.run.EDXPOSED_TAG
-import com.mdzz.run.R
-import com.mdzz.run.XPOSED_TAG
+import com.mdzz.hook.EDXPOSED_TAG
+import com.mdzz.R
+import com.mdzz.hook.XPOSED_TAG
 import com.mdzz.toast.ToastUtil
 import com.mdzz.util.PackageUtil
 

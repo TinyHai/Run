@@ -8,8 +8,8 @@ import android.preference.Preference
 import android.preference.PreferenceScreen
 import android.support.v7.app.AlertDialog
 import android.widget.Toast
-import com.mdzz.run.BuildConfig
-import com.mdzz.run.R
+import com.mdzz.BuildConfig
+import com.mdzz.R
 import com.mdzz.toast.ToastUtil
 import com.mdzz.util.ClipBoardUtil
 import com.mdzz.util.PackageUtil.hasInstalledIt
@@ -91,7 +91,7 @@ class AboutFragment : BasePreferenceFragment() {
     private fun showUpdateInfoDialog() {
         val dialog = updateInfoDialog ?: AlertDialog.Builder(activity)
                 .setTitle("更新日志")
-                .setMessage(getString(com.mdzz.run.R.string.update_info_data))
+                .setMessage(getString(R.string.update_info_data))
                 .setPositiveButton("OK", null)
                 .create()
         updateInfoDialog = dialog

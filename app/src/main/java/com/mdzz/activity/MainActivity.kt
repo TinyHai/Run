@@ -11,8 +11,8 @@ import android.view.Menu
 import android.view.MenuItem
 import com.mdzz.fragment.AboutFragment
 import com.mdzz.fragment.MainFragment
-import com.mdzz.run.R
-import com.mdzz.run.util.LogUtil
+import com.mdzz.R
+import com.mdzz.hook.util.LogUtil
 import com.mdzz.util.FileUtil
 
 class MainActivity : AppCompatActivity() {

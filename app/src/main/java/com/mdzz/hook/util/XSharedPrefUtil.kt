@@ -1,6 +1,6 @@
 package com.mdzz.hook.util
 
-import com.mdzz.hook.BuildConfig
+import com.mdzz.BuildConfig
 import de.robv.android.xposed.XSharedPreferences
 import java.lang.ref.WeakReference
 
