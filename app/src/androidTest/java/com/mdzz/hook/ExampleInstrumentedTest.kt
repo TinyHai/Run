@@ -1,4 +1,4 @@
-package com.mdzz.run
+package com.mdzz.hook
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
