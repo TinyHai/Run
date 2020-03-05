@@ -12,12 +12,10 @@ object LogUtil {
         try {
             val xposedBridgeClass = Class.forName("de.robv.android.xposed.XposedBridge")
             val tagField = xposedBridgeClass.getDeclaredField("TAG")
-            if (!tagField.isAccessible) {
-                tagField.isAccessible = true
-            }
+            tagField.isAccessible = tagField.isAccessible or true
             tagField.get(null).toString()
         } catch (e: ClassNotFoundException) {
-            "NoXposed"
+            "Unknown"
         } catch (th: Throwable) {
             XposedBridge.log(th)
             "EdXposed-Bridge"
