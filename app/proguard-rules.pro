@@ -33,8 +33,9 @@
 
 -keep public class com.mdzz.hook.XposedInit
 
--keepclasseswithmembers class com.mdzz.activity.MainActivity {
+-keepclassmembernames class com.mdzz.activity.MainActivity {
     private boolean isActive();
+    private static final java.lang.String XPTAG;
 }
 
 -keepclassmembers class com.mdzz.hook.XposedMain {
