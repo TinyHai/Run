@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.util.Log;
 import dalvik.system.PathClassLoader;
 import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import java.io.File;
@@ -16,11 +17,11 @@ import java.io.File;
 public class HotXposed {
 
   private static final String ACTIVITY_THREAD_CLASSNAME = "android.app.ActivityThread";
-  private static final String GET_PACKAGE_MANAGE_METHOD_NAME = "getPackageManage";
+  private static final String GET_PACKAGE_MANAGER = "getPackageManager";
 
   public static void hook(Class clazz, XC_LoadPackage.LoadPackageParam lpparam)
       throws Exception {
-    String packageName = clazz.getName().replace("."+clazz.getSimpleName(),"");
+    String packageName = clazz.getName().replace("." + clazz.getSimpleName(),"");
     File apkFile = getApkFile(packageName);
 
     if (apkFile == null) {
@@ -31,7 +32,7 @@ public class HotXposed {
     filterNotify(lpparam);
 
     PathClassLoader classLoader =
-        new PathClassLoader(apkFile.getAbsolutePath(), lpparam.getClass().getClassLoader());
+        new PathClassLoader(apkFile.getAbsolutePath(), XposedBridge.BOOTCLASSLOADER);
 
     XposedHelpers.callMethod(classLoader.loadClass(clazz.getName()).newInstance(), "dispatch",lpparam);
   }
@@ -55,6 +56,7 @@ public class HotXposed {
                     super.afterHookedMethod(param);
                   }
                 });
+        break;
       }
     }
   }
@@ -66,10 +68,10 @@ public class HotXposed {
       @SuppressLint("PrivateApi")
       PackageManager pm = (PackageManager) XposedHelpers.callStaticMethod(
               Class.forName(ACTIVITY_THREAD_CLASSNAME),
-              GET_PACKAGE_MANAGE_METHOD_NAME
+              GET_PACKAGE_MANAGER
       );
       ApplicationInfo info = pm.getApplicationInfo(packageName, 0);
-      apkFile = new File(info.sourceDir);
+      apkFile = new File(info.sourceDir, "base.apk");
       return apkFile;
     } catch (ClassNotFoundException | PackageManager.NameNotFoundException e) {
       e.printStackTrace();
