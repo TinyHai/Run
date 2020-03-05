@@ -36,3 +36,7 @@
 -keepclasseswithmembers class com.mdzz.activity.MainActivity {
     private boolean isActive();
 }
+
+-keepclassmembers class com.mdzz.hook.XposedMain {
+    public void dispatch(**);
+}
