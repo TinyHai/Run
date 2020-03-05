@@ -21,7 +21,7 @@ class XposedInit : IXposedHookLoadPackage {
             return
         }
         if (lpparam.packageName == HOOK_PACKAGE) {
-            HotXposed.hook(XposedMain::class.java, lpparam)
+            HotXposed.hook(XposedMain::class.java, BuildConfig.APPLICATION_ID, lpparam)
         }
     }
 
