@@ -1,6 +1,5 @@
 package com.mdzz.hook
 
-import android.util.Log
 import com.mdzz.hook.base.BaseHook
 import com.mdzz.hook.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodReplacement
