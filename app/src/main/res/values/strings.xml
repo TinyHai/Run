@@ -4,7 +4,7 @@
     <string name="app_name">Run</string>
 
     <string name="agrement_info">此软件仅仅为了解决Xposed框架与某跑步软件的兼容性问题，请勿用作其他用途，如若不然，后果由你自己承担，与作者无关！</string>
-    <string name="update_info_data">1-删除无用的模块\n2-添加了亿点点逻辑\n3-更新版本号</string>
+    <string name="update_info_data">1-删除无用的模块\n2-添加HotXposed支持\n3-更新版本号</string>
 
     <!-- menu -->
     <string name="hide_icon">隐藏图标</string>
