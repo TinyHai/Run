@@ -9,3 +9,5 @@
 
 Run下载地址1: [百度云盘](https://pan.baidu.com/s/1yENMocHijwbhnrCj5afTIg)<br>
 Run下载地址2: [Release](https://github.com/TinyHai/Run/releases)
+
+[HotXposed项目地址](https://github.com/githubwing/HotXposed)
