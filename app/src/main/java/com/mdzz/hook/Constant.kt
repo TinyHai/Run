@@ -10,6 +10,8 @@ const val PREVENT_DIALOG = "prevent_dialog"
 
 const val HOOK_START = "start"
 
+const val CHECK_UTIL_CLASS = "check_util_class"
+
 const val NEED_PROTECT_PACKAGE = "need_protect_package"
 
 const val LOG_SWICH = "log_switch"
@@ -51,8 +53,6 @@ const val BASEPARAMS_CLASS = "org.xutils.http.BaseParams"
 const val IJIAMI_ENCRYPTIONMODE_CLASS = "com.ijiami.EncryptionMode"
 
 const val IJIAMI_JMEBBU_CLASS = "com.ijiami.JMEncryptBoxByUnidirectional"
-
-const val LB_CLASS = "lg"
 
 const val XPOSED_TAG = "Xposed"
 

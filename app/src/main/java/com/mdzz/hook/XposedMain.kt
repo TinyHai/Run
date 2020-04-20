@@ -14,6 +14,8 @@ class XposedMain : IHookerDispatcher {
     override fun dispatch(lpparam: XC_LoadPackage.LoadPackageParam) {
         BaseHook.log(TAG,"Run 已加载")
         if (XSharedPrefUtil.getBoolean(HOOK_START)) {
+            BaseHook.classLoader = lpparam.classLoader
+            HKAppComponentFactory().beginHook()
             HKInstrumentation().getClassLoaderAndStartHook(lpparam)
         }
     }
