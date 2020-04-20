@@ -96,8 +96,7 @@ class MainFragment : BasePreferenceFragment() {
 
         const val IS_ACTIVE = "is_active"
 
-        fun newInstance(args: Bundle? = null)
-                = MainFragment().apply {
+        fun newInstance(args: Bundle? = null) = MainFragment().apply {
             args?.let {
                 this.arguments = it
             }

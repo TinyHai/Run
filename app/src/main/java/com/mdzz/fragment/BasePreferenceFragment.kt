@@ -16,8 +16,9 @@ abstract class BasePreferenceFragment : PreferenceFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val activity = activity
         if (activity is MainActivity) {
-            mActivity = WeakReference(activity as MainActivity)
+            mActivity = WeakReference(activity)
         }
     }
 
