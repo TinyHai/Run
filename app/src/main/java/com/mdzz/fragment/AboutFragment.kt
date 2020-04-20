@@ -53,8 +53,8 @@ class AboutFragment : BasePreferenceFragment() {
                 ToastUtil.makeToast("QQ号已复制到剪贴板")
                 return true
             }
-            "clouddisk" -> {
-                UriUtil.openUri(activity, Uri.parse(getString(R.string.url_clouddisk)))
+            "lanzous" -> {
+                UriUtil.openUri(activity, Uri.parse(getString(R.string.url_lanzous)))
                 return true
             }
             "pay" -> {

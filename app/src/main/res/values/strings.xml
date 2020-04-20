@@ -13,6 +13,7 @@
     <!-- Url -->
     <string name="url_clouddisk">https://pan.baidu.com/s/1yENMocHijwbhnrCj5afTIg</string>
     <string name="url_github">https://github.com/TinyHai/Run.git</string>
+    <string name="url_lanzous">https://tinyhai.lanzous.com/b015dl3nc</string>
     <string name="url_qqpurify_github">https://github.com/zpp0196/QQPurify.git</string>
     <!--<string name="title_activity_my_main_actitivy">Run</string>-->
 
@@ -22,7 +23,7 @@
     <string name="version">当前版本：%1$s</string>
     <string name="agreement">免责声明 (使用本软件即同意)</string>
     <string name="feedback">反馈QQ：2071769694</string>
-    <string name="clouddisk">我的百度云盘</string>
+    <string name="lanzous">我的蓝奏云盘</string>
     <string name="update_info">更新日志</string>
     <string name="pay_code">支付宝推广红包代码</string>
     <string name="run_github">Github开源地址</string>

@@ -12,8 +12,8 @@
             android:key="feedback"
             android:icon="@drawable/ic_feedback"/>
         <Preference
-            android:title="@string/clouddisk"
-            android:key="clouddisk"
+            android:title="@string/lanzous"
+            android:key="lanzous"
             android:icon="@drawable/ic_clouddisk"/>
         <Preference
             android:title="@string/pay"
