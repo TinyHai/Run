@@ -18,10 +18,10 @@ class HKTool : BaseHook() {
                     Int::class.javaPrimitiveType, MyMethodHook)
             log(TAG, "run: 模块6工作正常")
         } catch (e: ClassNotFoundException) {
-            log(TAG, "run: 模块6出错")
+            log(TAG, "run: 模块5出错")
             log(TAG, e)
         } catch (th: Throwable) {
-            log(TAG, "run: 模块6出错")
+            log(TAG, "run: 模块5出错")
             log(TAG, th)
         }
     }

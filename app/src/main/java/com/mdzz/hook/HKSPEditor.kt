@@ -2,6 +2,7 @@ package com.mdzz.hook
 
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
+import com.mdzz.BuildConfig
 import com.mdzz.hook.base.BaseHook
 import com.mdzz.hook.proxy.EditorProxy
 import de.robv.android.xposed.XC_MethodHook
@@ -15,12 +16,15 @@ class HKSPEditor : BaseHook() {
 
     @SuppressLint("PrivateApi")
     override fun beginHook() {
+        if (BuildConfig.DEBUG.not()) {
+            return
+        }
         try {
             val sharedPrefClass = XposedHelpers.findClass(SHARED_PREF_CLASS, classLoader)
             XposedHelpers.findAndHookMethod(sharedPrefClass, "edit", EditMethodHook)
-            log(TAG, "run: 模块9工作正常")
+            log(TAG, "run: 模块8工作正常")
         } catch (th: Throwable) {
-            log(TAG, "run: 模块9出错")
+            log(TAG, "run: 模块8出错")
             log(TAG, th)
         }
     }

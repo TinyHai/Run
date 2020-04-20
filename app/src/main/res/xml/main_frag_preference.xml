@@ -24,11 +24,11 @@
             android:summary="@string/summary_need_protect_package"
             android:dialogTitle="@string/dlg_title_need_protect_package"
             android:dialogMessage="@string/dlg_msg_need_protect_package"/>
-        <SwitchPreference
-            android:key="need_hide_tab"
-            android:title="@string/hide_tab"
-            android:defaultValue="true"
-            android:summary="@string/summary_hide_tab"/>
+        <EditTextPreference
+            android:key="check_util_class"
+            android:title="@string/check_util_class"
+            android:defaultValue="lg"
+            android:summary="@string/summary_check_util_class"/>
         <SwitchPreference
             android:title="@string/make_dialog_cancelable"
             android:key="make_dialog_cancelable"

@@ -11,6 +11,7 @@ import de.robv.android.xposed.XposedHelpers
 import java.lang.reflect.Field
 import java.lang.reflect.Method
 
+// Will remove
 class HKForHideTab : BaseHook() {
 
     companion object {

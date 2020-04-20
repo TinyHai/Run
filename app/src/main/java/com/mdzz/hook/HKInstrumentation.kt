@@ -38,7 +38,6 @@ class HKInstrumentation {
                 add(HKApplication())
                 add(HKThrowable())
                 add(HKPackageManager())
-                add(HKForHideTab())
                 add(HKDialog())
                 add(HKMethod())
                 add(HKTool())

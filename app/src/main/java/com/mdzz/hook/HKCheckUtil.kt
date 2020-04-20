@@ -1,5 +1,6 @@
 package com.mdzz.hook
 
+import android.util.Log
 import com.mdzz.hook.base.BaseHook
 import com.mdzz.hook.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodReplacement
@@ -24,6 +25,7 @@ class HKCheckUtil : BaseHook() {
             XposedHelpers.findClass(checkUtilClassName, classLoader)
         } catch (th: Throwable) {
             log(TAG, th)
+            log(TAG, "run: 模块8出错")
             null
         }
         if (lbClass == null) {
@@ -31,6 +33,7 @@ class HKCheckUtil : BaseHook() {
             return
         }
         hookAllStaticMethodReturnZ(lbClass)
+        log(TAG, "run: 模块8工作正常")
     }
 
     private fun hookAllStaticMethodReturnZ(lbClass: Class<*>) {

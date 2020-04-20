@@ -4,7 +4,7 @@
     <string name="app_name">Run</string>
 
     <string name="agrement_info">此软件仅仅为了解决Xposed框架与某跑步软件的兼容性问题，请勿用作其他用途，如若不然，后果由你自己承担，与作者无关！</string>
-    <string name="update_info_data">1-继续加强反检测\n2-修复无法打开EdXposedManager的bug\n3-添加了亿点逻辑\n4-更新版本号</string>
+    <string name="update_info_data">1-删除无用的模块\n2-添加了亿点点逻辑\n3-更新版本号</string>
 
     <!-- menu -->
     <string name="hide_icon">隐藏图标</string>
@@ -40,8 +40,8 @@
     <string name="run_is_start">已启动</string>
     <string name="run_no_start">未启动</string>
     <string name="title_function_setting">功能设置</string>
-    <string name="summary_hide_tab">隐藏首页底部的广告Tab</string>
-    <string name="hide_tab">隐藏Tab</string>
+    <string name="summary_check_util_class">填写检测Xposed的工具类名, 默认值适配3.0.1</string>
+    <string name="check_util_class">Xposed检测工具类名</string>
     <string name="make_dialog_cancelable">使弹窗可取消</string>
     <string name="summary_make_dialog_cancelable">使弹窗变为可按返回键取消</string>
     <string name="prevent_dialog">阻止部分窗口弹出</string>
@@ -57,13 +57,6 @@
     <string name="dlg_msg_need_protect_package">每个应用包名占一行</string>
     <string name="log_switch">日志开关</string>
     <string name="summary_log_switch">/data/data/运动世界校园包名/infos_1/infos.txt</string>
-    <string name="version_mask">版本伪装</string>
-    <string name="version_mask_summary">伪装上传成绩时的App版本</string>
-    <string name="version_mask_dialog_msg">填写 0 代表不伪装</string>
     <string name="ban_force_update">禁止强制更新</string>
-    <string name="upload_api">上传Api</string>
-    <string name="upload_api_dialog_msg">只需要填写Api路径部分, 例如访问地址为https://example.com/api/v0/run, 则填写/api/v0/run</string>
-    <string name="upload_api_summary">通过抓包获取的上传Api, 抓包类似/api/vXX/runnings/save/record的路径</string>
-    <string name="mask_version_name">伪装版本号</string>
 
 </resources>
