@@ -12,7 +12,6 @@
     <string name="view_icon">显示图标</string>
 
     <!-- Url -->
-    <string name="url_clouddisk">https://pan.baidu.com/s/1yENMocHijwbhnrCj5afTIg</string>
     <string name="url_github">https://github.com/TinyHai/Run.git</string>
     <string name="url_lanzous">https://tinyhai.lanzous.com/b015dl3nc</string>
     <string name="url_qqpurify_github">https://github.com/zpp0196/QQPurify.git</string>
