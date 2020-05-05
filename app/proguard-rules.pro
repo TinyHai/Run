@@ -38,6 +38,6 @@
     private static final java.lang.String XPTAG;
 }
 
--keepclassmembers class com.mdzz.hook.XposedMain {
+-keepclasseswithmembers class com.mdzz.hook.XposedMain {
     public void dispatch(**);
 }

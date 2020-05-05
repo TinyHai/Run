@@ -38,21 +38,21 @@ class HKPackageManager : BaseHook() {
         }
     }
 
-    object MyIAppMethodHook : XC_MethodHook() {
+    private object MyIAppMethodHook : XC_MethodHook() {
         override fun afterHookedMethod(param: MethodHookParam) {
             val applicationInfos = param.result as List<ApplicationInfo>
             param.result = ApplicationInfoFilter.get(applicationInfos)
         }
     }
 
-    object MyIPkgMethodHook : XC_MethodHook() {
+    private object MyIPkgMethodHook : XC_MethodHook() {
         override fun afterHookedMethod(param: MethodHookParam) {
             val packageInfos = param.result as List<PackageInfo>
             param.result = PackageInfoFilter.get(packageInfos)
         }
     }
 
-    object MyMethodHook : XC_MethodHook() {
+    private object MyMethodHook : XC_MethodHook() {
 
         private val protectedPackageNames
                 get() = XSharedPrefUtil.getStringSet(NEED_PROTECT_PACKAGE, delimiter = "\n")

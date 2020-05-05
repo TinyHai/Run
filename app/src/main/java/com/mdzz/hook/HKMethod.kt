@@ -3,6 +3,7 @@ package com.mdzz.hook
 import com.mdzz.hook.base.BaseHook
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
+import java.lang.reflect.Method
 
 class HKMethod : BaseHook() {
     companion object {
@@ -11,9 +12,8 @@ class HKMethod : BaseHook() {
 
     override fun beginHook() {
         try {
-            val modifierClass = classLoader.loadClass(MODIFIER_CLASS)
-            XposedHelpers.findAndHookMethod(modifierClass, "isNative",
-                    Int::class.javaPrimitiveType, MyMethodHook)
+            val methodClass = classLoader.loadClass(METHOD_CLASS)
+            XposedHelpers.findAndHookMethod(methodClass, "getModifiers", MyMethodHook)
             log(TAG, "run: 模块4工作正常")
         } catch (e: ClassNotFoundException) {
             log(TAG, "run: 模块4出错")
@@ -25,10 +25,12 @@ class HKMethod : BaseHook() {
     }
 
 
-    object MyMethodHook : XC_MethodHook() {
+    private object MyMethodHook : XC_MethodHook() {
         override fun beforeHookedMethod(param: MethodHookParam) {
-            log(TAG, "isNative be false")
-            param.result = false
+            if ((param.thisObject as Method).name == "getDeviceId") {
+                param.result = 0x0
+                log(TAG, "native method modifier be replace")
+            }
         }
     }
 }
