@@ -21,7 +21,7 @@ class HKFileReader : BaseHook() {
         }
     }
 
-    object MyMethodHook : XC_MethodHook() {
+    private object MyMethodHook : XC_MethodHook() {
         override fun beforeHookedMethod(param: MethodHookParam?) {
             param?.let {
                 try {

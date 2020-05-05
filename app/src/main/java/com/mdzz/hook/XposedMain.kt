@@ -15,7 +15,7 @@ class XposedMain : IHookerDispatcher {
         BaseHook.log(TAG,"Run 已加载")
         if (XSharedPrefUtil.getBoolean(HOOK_START)) {
             BaseHook.classLoader = lpparam.classLoader
-            HKAppComponentFactory().beginHook()
+            HKDexFile().beginHook()
             HKInstrumentation().getClassLoaderAndStartHook(lpparam)
         }
     }

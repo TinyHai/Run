@@ -24,12 +24,13 @@ class HKApplication : BaseHook() {
         }
     }
 
-    object OnCreateMethodHook : XC_MethodHook() {
-        override fun afterHookedMethod(param: MethodHookParam?) {
+    private object OnCreateMethodHook : XC_MethodHook() {
+        override fun beforeHookedMethod(param: MethodHookParam?) {
             Thread.currentThread().setUncaughtExceptionHandler { th, ex ->
                 log(TAG, th.name)
                 log(TAG, ex)
             }
+            log(TAG, "replace exception handler")
         }
     }
 }

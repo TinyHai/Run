@@ -31,7 +31,7 @@ class HKAppVersion : BaseHook() {
         }
     }
 
-    object IsForceMethodHook : XC_MethodHook() {
+    private object IsForceMethodHook : XC_MethodHook() {
         override fun afterHookedMethod(param: MethodHookParam?) {
             param?.let {
                 try {

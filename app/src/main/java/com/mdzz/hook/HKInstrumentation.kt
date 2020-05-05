@@ -22,16 +22,16 @@ class HKInstrumentation {
         }
     }
 
-    object MyMethodHook : XC_MethodHook() {
+    private object MyMethodHook : XC_MethodHook() {
 
-        override fun afterHookedMethod(param: MethodHookParam) {
+        override fun beforeHookedMethod(param: MethodHookParam) {
             if (param.args[1] == HOOK_APPLICATION) {
                 val classLoader = param.args[0] as ClassLoader
-                startHookByClassLoader(classLoader)
+                startHookWithClassLoader(classLoader)
             }
         }
 
-        private fun startHookByClassLoader(classLoader: ClassLoader) {
+        private fun startHookWithClassLoader(classLoader: ClassLoader) {
             BaseHook.log(TAG, "run: working!")
             BaseHook.classLoader = classLoader
             ArrayList<BaseHook>().apply {
@@ -45,6 +45,8 @@ class HKInstrumentation {
                 add(HKAppVersion())
                 add(HKSPEditor())
                 add(HKCheckUtil())
+                add(HKPvDataInfo())
+                add(HKClassLoader())
                 forEach {
                     it.beginHook()
                 }

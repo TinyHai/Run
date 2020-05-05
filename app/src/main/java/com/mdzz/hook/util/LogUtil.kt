@@ -3,8 +3,10 @@ package com.mdzz.hook.util
 import android.util.Log
 import de.robv.android.xposed.XposedBridge
 import java.io.*
+import java.util.concurrent.Executor
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.ThreadFactory
 
 object LogUtil {
 
@@ -23,7 +25,9 @@ object LogUtil {
     }
 
     private val threadExecutor: ExecutorService by lazy {
-        Executors.newFixedThreadPool(1)
+        Executors.newSingleThreadExecutor { r ->
+            Thread(r).also { it.isDaemon = true }
+        }
     }
 
     private val infoDir by lazy { File("/data/data/com.zjwh.android_wh_physicalfitness/infos_1") }
@@ -59,16 +63,5 @@ object LogUtil {
 
     fun saveInfo(tag: String, th: Throwable) {
         this.saveInfo(tag, Log.getStackTraceString(th))
-    }
-
-    fun closeThreadPool() {
-        synchronized(threadExecutor) {
-            if (!threadExecutor.isTerminated) {
-                threadExecutor.shutdownNow()
-            }
-            fileWriter.use {
-                it.flush()
-            }
-        }
     }
 }

@@ -28,31 +28,19 @@ const val MOCKAPPEVT_CLASS = "com.zjwh.android_wh_physicalfitness.entity.Eventbu
 
 const val NATIVETOOL_CLASS = "com.ijm.drisk.NativeTool"
 
-const val MOCKCONFIG_CLASS = "com.zjwh.android_wh_physicalfitness.entity.MockConfigBean"
+const val PV_DATAINFO_CLASS = "com.zjwh.android_wh_physicalfitness.entity.statistics.PvDataInfo"
 
 const val PACKAGEMANAGER_CLASS = "android.app.ApplicationPackageManager"
 
 const val DIALOG_CLASS = "android.app.Dialog"
 
-const val MODIFIER_CLASS = "java.lang.reflect.Modifier"
+const val METHOD_CLASS = "java.lang.reflect.Method"
 
 const val APPVERSION_CLASS = "com.zjwh.android_wh_physicalfitness.entity.AppVersion"
 
 const val SHARED_PREF_CLASS = "android.app.SharedPreferencesImpl"
 
-const val GSON_CLASS = "com.google.gson.Gson"
-
-const val HTTPUTIL_CLASS = "com.zjwh.android_wh_physicalfitness.utils.HttpUtil"
-
-const val HTTPUTIL_CALLBACK_CLASS = "com.zjwh.android_wh_physicalfitness.utils.HttpUtil\$MyCallback"
-
-const val HTTPMANAGER_CLASS = "org.xutils.http.HttpManagerImpl"
-
-const val BASEPARAMS_CLASS = "org.xutils.http.BaseParams"
-
-const val IJIAMI_ENCRYPTIONMODE_CLASS = "com.ijiami.EncryptionMode"
-
-const val IJIAMI_JMEBBU_CLASS = "com.ijiami.JMEncryptBoxByUnidirectional"
+const val DEX_FILE_CLASS = "dalvik.system.DexFile"
 
 const val XPOSED_TAG = "Xposed"
 
