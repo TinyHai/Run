@@ -46,7 +46,8 @@ class HKInstrumentation {
                 add(HKSPEditor())
                 add(HKCheckUtil())
                 add(HKPvDataInfo())
-                add(HKClassLoader())
+                add(HKContextWrapper())
+//                add(HKClassLoader())
                 forEach {
                     it.beginHook()
                 }

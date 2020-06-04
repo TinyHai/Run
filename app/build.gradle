@@ -10,8 +10,8 @@ android {
         applicationId "com.mdzz.hook"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 27
-        versionName "1.9.3"
+        versionCode 28
+        versionName "1.9.4-beta"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }

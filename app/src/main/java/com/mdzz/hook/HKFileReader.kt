@@ -3,8 +3,10 @@ package com.mdzz.hook
 import com.mdzz.hook.base.BaseHook
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
+import java.io.BufferedReader
 import java.io.FileNotFoundException
 import java.io.FileReader
+import java.io.Reader
 
 class HKFileReader : BaseHook() {
     companion object {
@@ -24,14 +26,10 @@ class HKFileReader : BaseHook() {
     private object MyMethodHook : XC_MethodHook() {
         override fun beforeHookedMethod(param: MethodHookParam?) {
             param?.let {
-                try {
-                    val fileName = it.args[0].toString()
-                    if (fileName.matches(Regex("/proc/[0-9]+/maps"))) {
-                        log(TAG, fileName)
-                        it.throwable = FileNotFoundException("Invalid file path")
-                    }
-                } catch (th: Throwable) {
-                    log(TAG, th)
+                val fileName = it.args[0].toString()
+                if (fileName.matches(Regex("/proc/[0-9]+/maps"))) {
+                    log(TAG, fileName)
+                    it.throwable = FileNotFoundException("Invalid file path")
                 }
             }
         }

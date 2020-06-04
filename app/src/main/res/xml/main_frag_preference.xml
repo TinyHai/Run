@@ -30,14 +30,14 @@
             android:defaultValue="lg"
             android:summary="@string/summary_check_util_class"/>
         <SwitchPreference
+            android:title="@string/ban_force_update"
+            android:key="ban_force_update"
+            android:defaultValue="false" />
+        <SwitchPreference
             android:title="@string/make_dialog_cancelable"
             android:key="make_dialog_cancelable"
             android:defaultValue="true"
             android:summary="@string/summary_make_dialog_cancelable"/>
-        <SwitchPreference
-            android:title="@string/ban_force_update"
-            android:key="ban_force_update"
-            android:defaultValue="false" />
         <SwitchPreference
             android:title="@string/prevent_dialog"
             android:key="prevent_dialog"

@@ -28,6 +28,8 @@ const val MOCKAPPEVT_CLASS = "com.zjwh.android_wh_physicalfitness.entity.Eventbu
 
 const val NATIVETOOL_CLASS = "com.ijm.drisk.NativeTool"
 
+const val CONTEXT_WRAPPER_CLASS = "android.content.ContextWrapper"
+
 const val PV_DATAINFO_CLASS = "com.zjwh.android_wh_physicalfitness.entity.statistics.PvDataInfo"
 
 const val PACKAGEMANAGER_CLASS = "android.app.ApplicationPackageManager"

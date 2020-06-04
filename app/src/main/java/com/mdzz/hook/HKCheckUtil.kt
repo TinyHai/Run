@@ -1,5 +1,6 @@
 package com.mdzz.hook
 
+import android.text.TextUtils
 import com.mdzz.hook.base.BaseHook
 import com.mdzz.hook.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodReplacement
@@ -16,12 +17,17 @@ class HKCheckUtil : BaseHook() {
         private const val TAG = "HKCheckUtil"
 
         private val checkUtilClassName: String
-            get() = XSharedPrefUtil.getString(CHECK_UTIL_CLASS, "lg")!!.trim('\n', '\r', ' ', '\t')
+            get() = XSharedPrefUtil.getString(CHECK_UTIL_CLASS, "")!!.trim('\n', '\r', ' ', '\t')
     }
 
     override fun beginHook() {
         val lbClass = try {
-            XposedHelpers.findClass(checkUtilClassName, classLoader)
+            if (!TextUtils.isEmpty(checkUtilClassName)) {
+                XposedHelpers.findClass(checkUtilClassName, classLoader)
+            } else {
+                log(TAG, "no class name be added")
+                return
+            }
         } catch (th: Throwable) {
             log(TAG, th)
             log(TAG, "run: 模块8出错")

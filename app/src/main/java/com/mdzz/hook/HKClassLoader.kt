@@ -22,9 +22,9 @@ class HKClassLoader : BaseHook() {
             val classLoaderClass = classLoader::class.java
             val loadClassMethod = findMethod(classLoaderClass, "loadClass", String::class.java)
             XposedBridge.hookMethod(loadClassMethod, MyMethodHook)
-            log(TAG, "run: 模块9工作正常")
+            log(TAG, "run: 模块11工作正常")
         } catch (th: Throwable) {
-            log(TAG, "run: 模块9出错")
+            log(TAG, "run: 模块11出错")
             log(TAG, th)
         }
     }
