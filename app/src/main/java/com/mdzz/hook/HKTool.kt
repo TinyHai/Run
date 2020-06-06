@@ -19,7 +19,7 @@ class HKTool : BaseHook() {
     override fun beginHook() {
         try {
             val nativeToolClass = classLoader.loadClass(NATIVETOOL_CLASS)
-            nativeToolClass.declaredMethods.forEach {
+            nativeToolClass.declaredMethods.filter { it.name.startsWith("set").not() }.forEach {
                 XposedBridge.hookMethod(it, CheckMethodHook)
             }
             XposedHelpers.findAndHookMethod(nativeToolClass, "startCheckMockLocation",
