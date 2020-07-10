@@ -19,9 +19,9 @@ class HKContextWrapper : BaseHook() {
             val contextWrapperClass = XposedHelpers.findClass(CONTEXT_WRAPPER_CLASS, classLoader)
             XposedHelpers.findAndHookMethod(contextWrapperClass, "getSharedPreferences",
                     String::class.java, Int::class.javaPrimitiveType, MyMethodHook)
-            log(TAG, "run: 模块10运行正常")
+            log(TAG, "run: 模块${number}运行正常")
         } catch (th: Throwable) {
-            log(TAG, "run: 模块10出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, th)
         }
     }

@@ -27,12 +27,12 @@ class HKTool : BaseHook() {
                     Int::class.javaPrimitiveType, MyMethodHook)
             XposedHelpers.findAndHookMethod(nativeToolClass, "hasXposedExist",
                     Context::class.java, XpCheckMethodHook)
-            log(TAG, "run: 模块5工作正常")
+            log(TAG, "run: 模块${number}工作正常")
         } catch (e: ClassNotFoundException) {
-            log(TAG, "run: 模块5出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, e)
         } catch (th: Throwable) {
-            log(TAG, "run: 模块5出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, th)
         }
     }
@@ -111,12 +111,11 @@ class HKTool : BaseHook() {
     }
 
     private object CheckMethodHook : XC_MethodHook() {
-        override fun afterHookedMethod(param: MethodHookParam?) {
+        override fun beforeHookedMethod(param: MethodHookParam?) {
             param?.let {
                 val method = it.method as Method
                 log(TAG, method.toString())
                 log(TAG, "parameterValues = ${it.args?.contentToString()}")
-                log(TAG, "returnValue = ${it.resultOrThrowable}")
                 if (isReturnZ(method)) {
                     it.result = false
                 }

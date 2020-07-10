@@ -1,13 +1,17 @@
 package com.mdzz.hook
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
 import com.mdzz.hook.base.BaseHook
 import com.mdzz.hook.filter.ApplicationInfoFilter
 import com.mdzz.hook.filter.Filter
 import com.mdzz.hook.filter.PackageInfoFilter
+import com.mdzz.hook.filter.ResolveInfoFilter
 import com.mdzz.hook.util.XSharedPrefUtil
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
@@ -27,13 +31,15 @@ class HKPackageManager : BaseHook() {
                     String::class.java, Int::class.javaPrimitiveType, MyMethodHook)
             XposedHelpers.findAndHookMethod(appPackageManagerClass, "getApplicationInfo",
                     String::class.java, Int::class.javaPrimitiveType, MyMethodHook)
+            XposedHelpers.findAndHookMethod(appPackageManagerClass, "queryIntentActivities",
+                    Intent::class.java, Int::class.javaPrimitiveType, MyRInfoMethodHook)
             XposedHelpers.findAndHookMethod(appPackageManagerClass, "getInstalledApplications",
                     Int::class.javaPrimitiveType, MyIAppMethodHook)
             XposedHelpers.findAndHookMethod(appPackageManagerClass, "getInstalledPackages",
                     Int::class.javaPrimitiveType, MyIPkgMethodHook)
-            log(TAG, "run: 模块2工作正常")
+            log(TAG, "run: 模块${number}工作正常")
         } catch (th: Throwable) {
-            log(TAG, "run: 模块2出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, th)
         }
     }
@@ -52,6 +58,13 @@ class HKPackageManager : BaseHook() {
         }
     }
 
+    private object MyRInfoMethodHook : XC_MethodHook() {
+        override fun afterHookedMethod(param: MethodHookParam) {
+            val resolveInfo = param.result as List<ResolveInfo>
+            param.result = ResolveInfoFilter.get(resolveInfo)
+        }
+    }
+
     private object MyMethodHook : XC_MethodHook() {
 
         private val protectedPackageNames
@@ -64,10 +77,7 @@ class HKPackageManager : BaseHook() {
                     if (packageName.startsWith("android.") || packageName.contains(HOOK_PACKAGE)) {
                         return
                     }
-                    if (needProtected(packageName)) {
-                        it.throwable = PackageManager.NameNotFoundException(packageName)
-                        return
-                    }
+
                     var shouldThrow = false
                     if (hasResult(it)) {
                         when (it.result::class.java.simpleName) {
@@ -75,7 +85,7 @@ class HKPackageManager : BaseHook() {
                                 val applicationInfo = param.result as ApplicationInfo
                                 if (Filter.isSystemApp(applicationInfo.flags)) {
                                     return
-                                } else {
+                                } else if (needProtected(packageName)) {
                                     shouldThrow = true
                                 }
                             }
@@ -83,13 +93,14 @@ class HKPackageManager : BaseHook() {
                                 val packageInfo = it.result as PackageInfo
                                 if (Filter.isSystemApp(packageInfo.applicationInfo.flags)) {
                                     return
-                                } else {
+                                } else if (needProtected(packageName)) {
                                     shouldThrow = true
                                 }
                             }
                         }
                     }
                     if (shouldThrow) {
+                        log(TAG, packageName)
                         it.throwable = PackageManager.NameNotFoundException(packageName)
                     }
                 } catch (th: Throwable) {

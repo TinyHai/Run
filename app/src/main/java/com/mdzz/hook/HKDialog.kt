@@ -31,9 +31,9 @@ class HKDialog : BaseHook() {
             if (XSharedPrefUtil.getBoolean(PREVENT_DIALOG)) {
                 XposedHelpers.findAndHookMethod(dialogClass, "show", MyShowMethodHook)
             }
-            log(TAG, "run: 模块3工作正常")
+            log(TAG, "run: 模块${number}工作正常")
         } catch (th: Throwable) {
-            log(TAG, "run: 模块3出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, th)
         }
     }

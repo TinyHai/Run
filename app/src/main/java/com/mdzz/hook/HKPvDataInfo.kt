@@ -25,9 +25,9 @@ class HKPvDataInfo : BaseHook() {
             val pvDataInfoClass = classLoader.loadClass(PV_DATAINFO_CLASS)
             XposedHelpers.findAndHookConstructor(pvDataInfoClass, Int::class.javaPrimitiveType,
                     String::class.java, MyMethodHook)
-            log(TAG, "run: 模块9工作正常")
+            log(TAG, "run: 模块${number}工作正常")
         } catch (th: Throwable) {
-            log(TAG, "run: 模块9出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, th)
         }
     }

@@ -14,12 +14,12 @@ class HKApplication : BaseHook() {
         try {
             val myApplicationClass = XposedHelpers.findClass(HOOK_APPLICATION, classLoader)
             XposedHelpers.findAndHookMethod(myApplicationClass, "onCreate", OnCreateMethodHook)
-            log(TAG, "run: 模块0工作正常")
+            log(TAG, "run: 模块${number}工作正常")
         } catch (e: XposedHelpers.ClassNotFoundError) {
-            log(TAG, "run: 模块0出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, e)
         } catch (th: Throwable) {
-            log(TAG, "run: 模块0出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, th)
         }
     }

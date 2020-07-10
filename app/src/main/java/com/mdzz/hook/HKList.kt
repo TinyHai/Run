@@ -13,12 +13,12 @@ class HKList : BaseHook() {
         try {
             val mockAppEvtClass = classLoader.loadClass(MOCKAPPEVT_CLASS)
             XposedHelpers.findAndHookConstructor(mockAppEvtClass, List::class.java, MyMethodHook)
-            log(TAG, "run: 模块6工作正常")
+            log(TAG, "run: 模块${number}工作正常")
         } catch (e: ClassNotFoundException) {
-            log(TAG, "run: 模块6出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, e)
         } catch (th: Throwable) {
-            log(TAG, "run: 模块6出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, th)
         }
     }

@@ -44,6 +44,8 @@ const val SHARED_PREF_CLASS = "android.app.SharedPreferencesImpl"
 
 const val DEX_FILE_CLASS = "dalvik.system.DexFile"
 
+const val LOCATION_CLASS = "com.baidu.location.BDLocation"
+
 const val XPOSED_TAG = "Xposed"
 
 const val EDXPOSED_TAG = "EdXposed-Bridge"

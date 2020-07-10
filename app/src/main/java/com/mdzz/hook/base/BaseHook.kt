@@ -6,14 +6,19 @@ import com.mdzz.hook.util.XSharedPrefUtil
 
 abstract class BaseHook {
 
+    var number = 0
+
     abstract fun beginHook()
 
     companion object {
 
         private const val TAG = "BaseHook"
 
-        private val mOpenLog: Boolean
-            get() = XSharedPrefUtil.getBoolean(LOG_SWICH)
+        private val mOpenLog: Boolean by lazy {
+            XSharedPrefUtil.getBoolean(LOG_SWICH)
+        }
+
+        lateinit var processName: String
 
         @JvmStatic
         lateinit var classLoader: ClassLoader

@@ -16,9 +16,9 @@ class HKFileReader : BaseHook() {
     override fun beginHook() {
         try {
             XposedHelpers.findAndHookConstructor(FileReader::class.java, String::class.java, MyMethodHook)
-            log(TAG, "run: 模块6工作正常")
+            log(TAG, "run: 模块${number}工作正常")
         } catch (th: Throwable) {
-            log(TAG, "run: 模块6出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, th)
         }
     }

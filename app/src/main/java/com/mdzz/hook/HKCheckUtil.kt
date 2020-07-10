@@ -30,7 +30,7 @@ class HKCheckUtil : BaseHook() {
             }
         } catch (th: Throwable) {
             log(TAG, th)
-            log(TAG, "run: 模块8出错")
+            log(TAG, "run: 模块${number}出错")
             null
         }
         if (lbClass == null) {
@@ -38,7 +38,7 @@ class HKCheckUtil : BaseHook() {
             return
         }
         hookAllStaticMethodReturnZ(lbClass)
-        log(TAG, "run: 模块8工作正常")
+        log(TAG, "run: 模块${number}工作正常")
     }
 
     private fun hookAllStaticMethodReturnZ(lbClass: Class<*>) {

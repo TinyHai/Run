@@ -24,9 +24,9 @@ class HKAppVersion : BaseHook() {
         try {
             val appVersionClass = classLoader.loadClass(APPVERSION_CLASS)
             XposedHelpers.findAndHookMethod(appVersionClass, "getIsForse", IsForceMethodHook)
-            log(TAG, "run: 模块7工作正常")
+            log(TAG, "run: 模块${number}工作正常")
         } catch (th: Throwable) {
-            log(TAG, "run: 模块7出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, th)
         }
     }

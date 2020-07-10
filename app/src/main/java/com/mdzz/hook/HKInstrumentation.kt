@@ -14,6 +14,7 @@ class HKInstrumentation {
     fun getClassLoaderAndStartHook(lpparam: XC_LoadPackage.LoadPackageParam) {
         try {
             val clazz = lpparam.classLoader.loadClass("android.app.Instrumentation")
+            BaseHook.processName = lpparam.processName
             XposedHelpers.findAndHookMethod(clazz, "newApplication",
                     "java.lang.ClassLoader", "java.lang.String",
                     "android.content.Context", MyMethodHook)
@@ -33,6 +34,7 @@ class HKInstrumentation {
 
         private fun startHookWithClassLoader(classLoader: ClassLoader) {
             BaseHook.log(TAG, "run: working!")
+            BaseHook.log(TAG, BaseHook.processName)
             BaseHook.classLoader = classLoader
             ArrayList<BaseHook>().apply {
                 add(HKApplication())
@@ -43,12 +45,14 @@ class HKInstrumentation {
                 add(HKTool())
                 add(HKFileReader())
                 add(HKAppVersion())
-                add(HKSPEditor())
+//                add(HKSPEditor())
                 add(HKCheckUtil())
                 add(HKPvDataInfo())
                 add(HKContextWrapper())
-                forEach {
-                    it.beginHook()
+                add(HKMockLocation())
+                forEachIndexed { idx, bh ->
+                    bh.number = idx
+                    bh.beginHook()
                 }
             }.clear()
         }

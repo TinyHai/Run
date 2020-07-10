@@ -22,9 +22,9 @@ class HKSPEditor : BaseHook() {
         try {
             val sharedPrefClass = XposedHelpers.findClass(SHARED_PREF_CLASS, classLoader)
             XposedHelpers.findAndHookMethod(sharedPrefClass, "edit", EditMethodHook)
-            log(TAG, "run: 模块8工作正常")
+            log(TAG, "run: 模块${number}工作正常")
         } catch (th: Throwable) {
-            log(TAG, "run: 模块8出错")
+            log(TAG, "run: 模块${number}出错")
             log(TAG, th)
         }
     }
