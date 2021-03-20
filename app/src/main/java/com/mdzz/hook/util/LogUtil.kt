@@ -12,15 +12,12 @@ object LogUtil {
 
     val XPTAG by lazy {
         try {
-            val xposedBridgeClass = Class.forName("de.robv.android.xposed.XposedBridge")
-            val tagField = xposedBridgeClass.getDeclaredField("TAG")
+            val tagField = XposedBridge::class.java.getDeclaredField("TAG")
             tagField.isAccessible = tagField.isAccessible or true
             tagField.get(null).toString()
-        } catch (e: ClassNotFoundException) {
-            "Unknown"
         } catch (th: Throwable) {
             XposedBridge.log(th)
-            "EdXposed-Bridge"
+            "Unknown"
         }
     }
 
@@ -49,7 +46,7 @@ object LogUtil {
                 if (!infoFile.exists()) {
                     infoFile.createNewFile()
                 }
-                if (infoFile.length() > 2 shl 20) {
+                if (infoFile.length() > 1 shl 20) {
                     infoFile.delete()
                     infoFile.createNewFile()
                 }

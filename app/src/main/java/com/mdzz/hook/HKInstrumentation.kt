@@ -47,8 +47,8 @@ class HKInstrumentation {
                 add(HKAppVersion())
 //                add(HKSPEditor())
                 add(HKCheckUtil())
-                add(HKPvDataInfo())
-                add(HKContextWrapper())
+//                add(HKPvDataInfo())
+//                add(HKContextWrapper())
                 add(HKMockLocation())
                 forEachIndexed { idx, bh ->
                     bh.number = idx

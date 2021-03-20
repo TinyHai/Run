@@ -28,20 +28,16 @@ class MainFragment : BasePreferenceFragment() {
 
     private fun initPreference() {
         findPreference("status").apply {
-            summary = if (isActive) {
-                when (XPTAG) {
-                    XPOSED_TAG -> {
-                        getString(R.string.is_active, "Xposed")
-                    }
-                    EDXPOSED_TAG -> {
-                        getString(R.string.is_active, "EdXposed")
-                    }
-                    else -> {
-                        getString(R.string.is_active, XPTAG)
-                    }
+            summary = when (XPTAG) {
+                XPOSED_TAG -> {
+                    getString(R.string.is_active, "Xposed")
                 }
-            } else {
-                getString(R.string.no_active)
+                EDXPOSED_TAG -> {
+                    getString(R.string.is_active, "EdXposed")
+                }
+                else -> {
+                    getString(R.string.no_active)
+                }
             }
         }
     }
@@ -59,7 +55,8 @@ class MainFragment : BasePreferenceFragment() {
     private fun openXposedInstaller() {
 
         val xpManagerPackageNames = arrayOf("com.solohsu.android.edxp.manager",
-                "de.robv.android.xposed.installer", "org.meowcat.edxposed.manager")
+                "de.robv.android.xposed.installer", "org.meowcat.edxposed.manager",
+                "org.lsposed.manager", "io.github.lsposed.manager")
 
         var installedPackageName = ""
 
@@ -70,24 +67,32 @@ class MainFragment : BasePreferenceFragment() {
             }
         }
 
-        if (installedPackageName != "" && installedPackageName != "org.meowcat.edxposed.manager") {
-            val intent = Intent().apply {
-                component = ComponentName(installedPackageName,
-                        "de.robv.android.xposed.installer.WelcomeActivity")
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                putExtra("fragment", 1)
+        when (installedPackageName) {
+            "de.robv.android.xposed.installer", "com.solohsu.android.edxp.manager" -> {
+                val intent = Intent().apply {
+                    component = ComponentName(installedPackageName,
+                            "de.robv.android.xposed.installer.WelcomeActivity")
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    putExtra("fragment", 1)
+                }
+                startActivity(intent)
             }
-            startActivity(intent)
-        } else if (installedPackageName == "org.meowcat.edxposed.manager") {
-            val intent = Intent().apply {
-                component = ComponentName(installedPackageName,
-                        "org.meowcat.edxposed.manager.WelcomeActivityMlgmXyysd")
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                putExtra("fragment", 1)
+            "org.meowcat.edxposed.manager" -> {
+                val intent = Intent().apply {
+                    component = ComponentName(installedPackageName,
+                            "org.meowcat.edxposed.manager.WelcomeActivityMlgmXyysd")
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                    putExtra("fragment", 1)
+                }
+                startActivity(intent)
             }
-            startActivity(intent)
-        } else {
-            ToastUtil.makeToast("请先安装XposedInstaller后重试")
+            "org.lsposed.manager", "io.github.lsposed.manager" -> {
+                val intent = activity.packageManager.getLaunchIntentForPackage(installedPackageName)
+                startActivity(intent)
+            }
+            else -> {
+                ToastUtil.makeToast("请先安装XposedInstaller后重试")
+            }
         }
     }
 

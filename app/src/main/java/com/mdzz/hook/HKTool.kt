@@ -14,19 +14,21 @@ class HKTool : BaseHook() {
         private const val TAG = "HKTool"
 
         private const val SPECIAL_XP_CLASS = "de.robv.android.xposed.callbacks.XC_InitPackageResources.InitPackageResourcesParam"
+
+        private val CHECK_METHOD_NAMES = arrayOf("checkHookAttack", "checkIsSimulator", "checkIsRunInVirtual")
     }
 
     override fun beginHook() {
         try {
             val nativeToolClass = classLoader.loadClass(NATIVETOOL_CLASS)
-            nativeToolClass.declaredMethods.filter { it.name.startsWith("set").not() }.forEach {
+            nativeToolClass.declaredMethods.filter { it.name in CHECK_METHOD_NAMES }.forEach {
                 XposedBridge.hookMethod(it, CheckMethodHook)
             }
             XposedHelpers.findAndHookMethod(nativeToolClass, "startCheckMockLocation",
                     "android.content.Context", "com.ijm.drisk.mockinspect.MockProcess",
                     Int::class.javaPrimitiveType, MyMethodHook)
             XposedHelpers.findAndHookMethod(nativeToolClass, "hasXposedExist",
-                    Context::class.java, XpCheckMethodHook)
+                    Context::class.java, XC_MethodReplacement.returnConstant(false))
             log(TAG, "run: 模块${number}工作正常")
         } catch (e: ClassNotFoundException) {
             log(TAG, "run: 模块${number}出错")

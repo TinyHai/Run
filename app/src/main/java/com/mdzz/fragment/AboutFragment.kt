@@ -65,13 +65,6 @@ class AboutFragment : BasePreferenceFragment() {
                 }
                 return true
             }
-            "pay_code" -> {
-                ClipBoardUtil.setClipBoardContent(activity,
-                        ClipData.newPlainText("payCode", "559532805"))
-                ToastUtil.makeToast("推广码已复制到剪贴板，请到支付宝应用首页搜索即可领取红包",
-                        Toast.LENGTH_LONG)
-                return true
-            }
             "update_info" -> {
                 showUpdateInfoDialog()
                 return true

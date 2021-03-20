@@ -20,10 +20,6 @@
             android:icon="@drawable/ic_pay"
             android:key="pay"/>
         <Preference
-            android:title="@string/pay_code"
-            android:icon="@drawable/ic_pay_code"
-            android:key="pay_code"/>
-        <Preference
             android:title="@string/update_info"
             android:icon="@drawable/ic_update_info"
             android:key="update_info"/>

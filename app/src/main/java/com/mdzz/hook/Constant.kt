@@ -49,4 +49,3 @@ const val LOCATION_CLASS = "com.baidu.location.BDLocation"
 const val XPOSED_TAG = "Xposed"
 
 const val EDXPOSED_TAG = "EdXposed-Bridge"
-

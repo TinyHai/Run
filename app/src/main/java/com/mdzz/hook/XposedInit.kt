@@ -1,6 +1,7 @@
 package com.mdzz.hook
 
 import com.mdzz.BuildConfig
+import com.mdzz.activity.MainActivity
 import com.mdzz.hook.base.BaseHook
 import com.mdzz.hook.util.LogUtil
 import de.robv.android.xposed.IXposedHookLoadPackage
@@ -17,7 +18,7 @@ class XposedInit : IXposedHookLoadPackage {
 
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
         if (lpparam.packageName == BuildConfig.APPLICATION_ID) {
-            hookSelf(lpparam.classLoader)
+            hookSelf()
             return
         }
         if (lpparam.packageName == HOOK_PACKAGE) {
@@ -25,9 +26,9 @@ class XposedInit : IXposedHookLoadPackage {
         }
     }
 
-    private fun hookSelf(classLoader: ClassLoader) {
+    private fun hookSelf() {
         try {
-            val mainActivityClass = classLoader.loadClass("com.mdzz.activity.MainActivity")
+            val mainActivityClass = MainActivity::class.java
             XposedHelpers.findAndHookMethod(mainActivityClass, "isActive",
                     XC_MethodReplacement.returnConstant(true))
             XposedHelpers.setStaticObjectField(mainActivityClass,"XPTAG", LogUtil.XPTAG)

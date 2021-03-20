@@ -20,7 +20,8 @@
         <meta-data
             android:name="xposedminversion"
             android:value="54" />
-
+        <meta-data android:name="xposedscope"
+            android:resource="@array/run_scope" />
         <activity-alias
             android:name=".activity.MainActivityAlias"
             android:targetActivity=".activity.MainActivity">
